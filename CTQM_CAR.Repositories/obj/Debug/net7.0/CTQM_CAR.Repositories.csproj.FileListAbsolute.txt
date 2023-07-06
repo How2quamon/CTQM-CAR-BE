@@ -1,0 +1,17 @@
+C:\Users\thejo\source\repos\CTQM__CAR_API\CTQM_CAR.Repositories\bin\Debug\net7.0\CTQM_CAR.Repositories.deps.json
+C:\Users\thejo\source\repos\CTQM__CAR_API\CTQM_CAR.Repositories\bin\Debug\net7.0\CTQM_CAR.Repositories.dll
+C:\Users\thejo\source\repos\CTQM__CAR_API\CTQM_CAR.Repositories\bin\Debug\net7.0\CTQM_CAR.Repositories.pdb
+C:\Users\thejo\source\repos\CTQM__CAR_API\CTQM_CAR.Repositories\bin\Debug\net7.0\CTQM_CAR.Domain.dll
+C:\Users\thejo\source\repos\CTQM__CAR_API\CTQM_CAR.Repositories\bin\Debug\net7.0\CTQM_CAR.Infrastructure.dll
+C:\Users\thejo\source\repos\CTQM__CAR_API\CTQM_CAR.Repositories\bin\Debug\net7.0\CTQM_CAR.Domain.pdb
+C:\Users\thejo\source\repos\CTQM__CAR_API\CTQM_CAR.Repositories\bin\Debug\net7.0\CTQM_CAR.Infrastructure.pdb
+C:\Users\thejo\source\repos\CTQM__CAR_API\CTQM_CAR.Repositories\obj\Debug\net7.0\CTQM_CAR.Repositories.csproj.AssemblyReference.cache
+C:\Users\thejo\source\repos\CTQM__CAR_API\CTQM_CAR.Repositories\obj\Debug\net7.0\CTQM_CAR.Repositories.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\thejo\source\repos\CTQM__CAR_API\CTQM_CAR.Repositories\obj\Debug\net7.0\CTQM_CAR.Repositories.AssemblyInfoInputs.cache
+C:\Users\thejo\source\repos\CTQM__CAR_API\CTQM_CAR.Repositories\obj\Debug\net7.0\CTQM_CAR.Repositories.AssemblyInfo.cs
+C:\Users\thejo\source\repos\CTQM__CAR_API\CTQM_CAR.Repositories\obj\Debug\net7.0\CTQM_CAR.Repositories.csproj.CoreCompileInputs.cache
+C:\Users\thejo\source\repos\CTQM__CAR_API\CTQM_CAR.Repositories\obj\Debug\net7.0\CTQM_CAR.Repositories.csproj.CopyComplete
+C:\Users\thejo\source\repos\CTQM__CAR_API\CTQM_CAR.Repositories\obj\Debug\net7.0\CTQM_CAR.Repositories.dll
+C:\Users\thejo\source\repos\CTQM__CAR_API\CTQM_CAR.Repositories\obj\Debug\net7.0\refint\CTQM_CAR.Repositories.dll
+C:\Users\thejo\source\repos\CTQM__CAR_API\CTQM_CAR.Repositories\obj\Debug\net7.0\CTQM_CAR.Repositories.pdb
+C:\Users\thejo\source\repos\CTQM__CAR_API\CTQM_CAR.Repositories\obj\Debug\net7.0\ref\CTQM_CAR.Repositories.dll

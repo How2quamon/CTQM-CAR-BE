@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CTQM_CAR.Repositories\CTQM_CAR.Repositories.csproj" />
+    <ProjectReference Include="..\CTQM_CAR.Shared\CTQM_CAR.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

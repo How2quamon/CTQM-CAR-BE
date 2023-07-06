@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\CTQM__CAR_API.props" />
+</Project>
