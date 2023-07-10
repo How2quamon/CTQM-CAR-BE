@@ -10,6 +10,7 @@
         "dependencies": {
           "CTQM_CAR.Service": "1.0.0",
           "CTQM_CAR.Shared": "1.0.0",
+          "CTQM_CAR_HEADER": "1.0.0",
           "FluentValidation.AspNetCore": "11.3.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.8",
           "Microsoft.AspNetCore.OpenApi": "7.0.0",
@@ -759,6 +760,16 @@
         "runtime": {
           "CTQM_CAR.Shared.dll": {}
         }
+      },
+      "CTQM_CAR_HEADER/1.0.0": {
+        "dependencies": {
+          "CTQM_CAR.Shared": "1.0.0",
+          "Microsoft.AspNetCore.OpenApi": "7.0.0",
+          "Swashbuckle.AspNetCore": "6.4.0"
+        },
+        "runtime": {
+          "CTQM_CAR_HEADER.dll": {}
+        }
       }
     }
   },
@@ -1335,6 +1346,11 @@
       "sha512": ""
     },
     "CTQM_CAR.Shared/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "CTQM_CAR_HEADER/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\CTQM_CAR_HEADER.props" />
+</Project>

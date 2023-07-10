@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\CTQM_CAR.Repositories\\IRepository",
+    "\\CTQM_CAR.Repositories\\Repository",
+    "\\CTQM_CAR.Service",
+    "\\CTQM_CAR.Service\\Service.Implement",
+    "\\CTQM__CAR_API\\bin",
+    "\\CTQM__CAR_API\\bin\\Debug",
+    "\\CTQM__CAR_API\\bin\\Debug\\net7.0",
+    "\\CTQM__CAR_API\\Controllers",
+    "\\CTQM__CAR_API\\Properties"
+  ],
+  "SelectedNode": "\\CTQM_CAR.Service\\Service.Implement\\CarServiceImpl.cs",
+  "PreviewInSolutionExplorer": false
+}

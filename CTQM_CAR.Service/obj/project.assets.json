@@ -3249,24 +3249,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\thejo\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\ACER Aspire 7\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\thejo\\source\\repos\\CTQM__CAR_API\\CTQM_CAR.Service\\CTQM_CAR.Service.csproj",
+      "projectUniqueName": "D:\\Study\\MEC_BE\\CTQM-CAR-BE\\CTQM_CAR.Service\\CTQM_CAR.Service.csproj",
       "projectName": "CTQM_CAR.Service",
-      "projectPath": "C:\\Users\\thejo\\source\\repos\\CTQM__CAR_API\\CTQM_CAR.Service\\CTQM_CAR.Service.csproj",
-      "packagesPath": "C:\\Users\\thejo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\thejo\\source\\repos\\CTQM__CAR_API\\CTQM_CAR.Service\\obj\\",
+      "projectPath": "D:\\Study\\MEC_BE\\CTQM-CAR-BE\\CTQM_CAR.Service\\CTQM_CAR.Service.csproj",
+      "packagesPath": "C:\\Users\\ACER Aspire 7\\.nuget\\packages\\",
+      "outputPath": "D:\\Study\\MEC_BE\\CTQM-CAR-BE\\CTQM_CAR.Service\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\thejo\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\ACER Aspire 7\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3274,18 +3269,17 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\thejo\\source\\repos\\CTQM__CAR_API\\CTQM_CAR.Repositories\\CTQM_CAR.Repositories.csproj": {
-              "projectPath": "C:\\Users\\thejo\\source\\repos\\CTQM__CAR_API\\CTQM_CAR.Repositories\\CTQM_CAR.Repositories.csproj"
+            "D:\\Study\\MEC_BE\\CTQM-CAR-BE\\CTQM_CAR.Repositories\\CTQM_CAR.Repositories.csproj": {
+              "projectPath": "D:\\Study\\MEC_BE\\CTQM-CAR-BE\\CTQM_CAR.Repositories\\CTQM_CAR.Repositories.csproj"
             },
-            "C:\\Users\\thejo\\source\\repos\\CTQM__CAR_API\\CTQM_CAR.Shared\\CTQM_CAR.Shared.csproj": {
-              "projectPath": "C:\\Users\\thejo\\source\\repos\\CTQM__CAR_API\\CTQM_CAR.Shared\\CTQM_CAR.Shared.csproj"
+            "D:\\Study\\MEC_BE\\CTQM-CAR-BE\\CTQM_CAR.Shared\\CTQM_CAR.Shared.csproj": {
+              "projectPath": "D:\\Study\\MEC_BE\\CTQM-CAR-BE\\CTQM_CAR.Shared\\CTQM_CAR.Shared.csproj"
             }
           }
         }
@@ -3315,7 +3309,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -9,9 +9,9 @@ namespace CTQM_CAR.Repositories.IRepository
 	public interface IRepository<TEntity> where TEntity : class
 	{
 		Task<List<TEntity>> GetAll();
-		Task<TEntity> GetById(string id);
+		Task<TEntity> GetById(Guid id);
 		Task<TEntity> Add(TEntity entity);
-		TEntity Update(TEntity entity);
-		Task<bool> Delete(string id);
+		Task<TEntity> Update(TEntity entity);
+		Task<bool> Delete(Guid id);
 	}
 }

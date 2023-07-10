@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace CTQM_CAR.Repositories.IRepository
 {
-	public interface ICarDetailRepository : IRepository<CarDetail>
-	{
+    public interface ICarDetailRepository : IRepository<CarDetail>
+    {
 
-	}
+    }
 }

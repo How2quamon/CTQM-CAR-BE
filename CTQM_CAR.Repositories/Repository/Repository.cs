@@ -24,7 +24,7 @@ namespace CTQM_CAR.Repositories.Repository
 			return await _dbSet.ToListAsync();
 		}
 
-		public async Task<TEntity> GetById(string id)
+		public async Task<TEntity> GetById(Guid id)
 		{
 			return await _dbSet.FindAsync(id);
 		}
@@ -35,14 +35,14 @@ namespace CTQM_CAR.Repositories.Repository
 			return entity;
 		}
 
-		public TEntity Update(TEntity entity)
+		public async Task<TEntity> Update(TEntity entity)
 		{
 			_dbSet.Attach(entity);
 			_context.Entry(entity).State = EntityState.Modified;
 			return entity;
 		}
 
-		public async Task<bool> Delete(string id)
+		public async Task<bool> Delete(Guid id)
 		{
 			try
 			{

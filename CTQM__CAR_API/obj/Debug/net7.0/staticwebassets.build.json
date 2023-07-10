@@ -1,11 +1,23 @@
 {
   "Version": 1,
-  "Hash": "OgCaVIvHm3HEu5FvPdqfufzos6LO16VUQLAoEX1s2X4=",
+  "Hash": "MBc6hUCZ0t1C4y7QJuK0Hfb9aItV82EzacYblWH+5XA=",
   "Source": "CTQM__CAR_API",
   "BasePath": "_content/CTQM__CAR_API",
   "Mode": "Default",
   "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "D:\\Study\\MEC_BE\\CTQM-CAR-BE\\CTQM_CAR_HEADER\\CTQM_CAR_HEADER.csproj",
+      "Version": 2,
+      "Source": "CTQM_CAR_HEADER",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    }
+  ],
   "DiscoveryPatterns": [],
   "Assets": []
 }
