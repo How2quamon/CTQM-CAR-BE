@@ -116,7 +116,7 @@ namespace CTQM_CAR.Service.Service.Implement
                     carContent.MoTa2 = carDTO.MoTa2;
 
 
-                await _unitOfWork.carsRepo.Update(carContent);
+                _unitOfWork.carsRepo.Update(carContent);
                 await _unitOfWork.SaveAsync();
             }
         }

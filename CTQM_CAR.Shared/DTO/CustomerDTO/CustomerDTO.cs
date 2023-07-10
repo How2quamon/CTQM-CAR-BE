@@ -23,5 +23,17 @@ namespace CTQM_CAR.Shared.DTO.CustomerDTO
 		public string? CustomerEmail { get; set; }
 
 		public string? CustomerPassword { get; set; }
+
+		public CustomerDTO(Guid id, string name, string phone, string address, DateTime date, string license, string email, string? password = "unknow")
+		{
+			CustomerId = id;
+			CustomerName = name;
+			CustomerPhone = phone;
+			CustomerAddress = address;
+			CustomerDate = date;
+			CustomerLicense = license;
+			CustomerEmail = email;
+			CustomerPassword = password;
+		}
 	}
 }

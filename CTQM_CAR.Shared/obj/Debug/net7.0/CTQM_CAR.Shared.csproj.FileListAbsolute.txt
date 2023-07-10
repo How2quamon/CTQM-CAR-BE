@@ -22,3 +22,15 @@ D:\Study\MEC_BE\CTQM-CAR-BE\CTQM_CAR.Shared\obj\Debug\net7.0\CTQM_CAR.Shared.dll
 D:\Study\MEC_BE\CTQM-CAR-BE\CTQM_CAR.Shared\obj\Debug\net7.0\refint\CTQM_CAR.Shared.dll
 D:\Study\MEC_BE\CTQM-CAR-BE\CTQM_CAR.Shared\obj\Debug\net7.0\CTQM_CAR.Shared.pdb
 D:\Study\MEC_BE\CTQM-CAR-BE\CTQM_CAR.Shared\obj\Debug\net7.0\ref\CTQM_CAR.Shared.dll
+C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR.Shared\bin\Debug\net7.0\CTQM_CAR.Shared.deps.json
+C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR.Shared\bin\Debug\net7.0\CTQM_CAR.Shared.dll
+C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR.Shared\bin\Debug\net7.0\CTQM_CAR.Shared.pdb
+C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR.Shared\obj\Debug\net7.0\CTQM_CAR.Shared.csproj.AssemblyReference.cache
+C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR.Shared\obj\Debug\net7.0\CTQM_CAR.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR.Shared\obj\Debug\net7.0\CTQM_CAR.Shared.AssemblyInfoInputs.cache
+C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR.Shared\obj\Debug\net7.0\CTQM_CAR.Shared.AssemblyInfo.cs
+C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR.Shared\obj\Debug\net7.0\CTQM_CAR.Shared.csproj.CoreCompileInputs.cache
+C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR.Shared\obj\Debug\net7.0\CTQM_CAR.Shared.dll
+C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR.Shared\obj\Debug\net7.0\refint\CTQM_CAR.Shared.dll
+C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR.Shared\obj\Debug\net7.0\CTQM_CAR.Shared.pdb
+C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR.Shared\obj\Debug\net7.0\ref\CTQM_CAR.Shared.dll

@@ -41,9 +41,9 @@ namespace CTQM_CAR.Repositories.Repository
 			}
 		}
 
-		public void Dispose()
+		public async void Dispose()
 		{
-			_context.DisposeAsync();
+			await _context.DisposeAsync();
 		}
 	}
 }

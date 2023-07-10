@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "MBc6hUCZ0t1C4y7QJuK0Hfb9aItV82EzacYblWH+5XA=",
+  "Hash": "Tcq/umFC+kZnJ0SX12HpInD9OBbaW6TpIUfaZQDahy8=",
   "Source": "CTQM__CAR_API",
   "BasePath": "_content/CTQM__CAR_API",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "D:\\Study\\MEC_BE\\CTQM-CAR-BE\\CTQM_CAR_HEADER\\CTQM_CAR_HEADER.csproj",
+      "Identity": "C:\\Users\\thejo\\source\\NET\\CTQM-CAR-BE\\CTQM_CAR_HEADER\\CTQM_CAR_HEADER.csproj",
       "Version": 2,
       "Source": "CTQM_CAR_HEADER",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",

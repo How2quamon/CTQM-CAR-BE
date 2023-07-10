@@ -91,7 +91,7 @@ namespace CTQM_CAR.Service.Service.Implement
                     if (!string.IsNullOrEmpty(carDetailDTO.Title3))
                         carDetailContent.Title3 = carDetailDTO.Title3;
 
-                    await _unitOfWork.carDetailsRepo.Update(carDetailContent);
+                    _unitOfWork.carDetailsRepo.Update(carDetailContent);
                     await _unitOfWork.SaveAsync();
                 }                
         }

@@ -11,7 +11,7 @@ namespace CTQM_CAR.Repositories.IRepository
 		Task<List<TEntity>> GetAll();
 		Task<TEntity> GetById(Guid id);
 		Task<TEntity> Add(TEntity entity);
-		Task<TEntity> Update(TEntity entity);
+		TEntity Update(TEntity entity);
 		Task<bool> Delete(Guid id);
 	}
 }

@@ -35,7 +35,7 @@ namespace CTQM_CAR.Repositories.Repository
 			return entity;
 		}
 
-		public async Task<TEntity> Update(TEntity entity)
+		public TEntity Update(TEntity entity)
 		{
 			_dbSet.Attach(entity);
 			_context.Entry(entity).State = EntityState.Modified;
