@@ -18,5 +18,30 @@ namespace CTQM_CAR.Repositories.Repository
 		{
 			get { return _context as MEC_DBContext; }
 		}
+
+		public async Task<List<Cart>> GetCustomerCart(Guid customerId)
+		{
+			return await MecDBContext.Carts
+				.Where(c => c.CustomerId == customerId)
+				.ToListAsync();
+		}
+
+		public async Task<bool> DeleteCustomerCart(Guid customerId)
+		{
+			try
+			{
+				List<Cart> customerCarts = await MecDBContext.Carts
+											.Where(c => c.CustomerId == customerId)
+											.ToListAsync();
+
+				MecDBContext.Carts.RemoveRange(customerCarts);
+				return true;				
+			}
+			catch(Exception ex)
+			{
+				Console.WriteLine(ex);
+				return false;
+			}
+		}
 	}
 }

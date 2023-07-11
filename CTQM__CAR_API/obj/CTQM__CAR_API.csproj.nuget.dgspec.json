@@ -306,7 +306,11 @@
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\thejo\\source\\NET\\CTQM-CAR-BE\\CTQM_CAR.Domain\\CTQM_CAR.Domain.csproj": {
+                "projectPath": "C:\\Users\\thejo\\source\\NET\\CTQM-CAR-BE\\CTQM_CAR.Domain\\CTQM_CAR.Domain.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

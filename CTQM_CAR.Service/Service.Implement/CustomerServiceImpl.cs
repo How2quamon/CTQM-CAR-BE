@@ -135,9 +135,17 @@ namespace CTQM_CAR.Service.Service.Implement
 		{
 			try
 			{
-				await _unitOfWork.customersRepo.Delete(customerId);
-				await _unitOfWork.SaveAsync();
-				return true;
+				// Delete Order
+				
+				// Delete Cart
+				bool checkCartDelete = await _unitOfWork.customersRepo.Delete(customerId);
+				bool checkCustomerDelete = await _unitOfWork.cartsRepo.DeleteCustomerCart(customerId);
+				if (checkCartDelete && checkCustomerDelete)
+				{
+					await _unitOfWork.SaveAsync();
+					return true;
+				}
+				return false;
 			}
 			catch (Exception ex)
 			{

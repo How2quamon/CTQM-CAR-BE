@@ -632,6 +632,9 @@
         }
       },
       "CTQM_CAR.Shared/1.0.0": {
+        "dependencies": {
+          "CTQM_CAR.Domain": "1.0.0"
+        },
         "runtime": {
           "CTQM_CAR.Shared.dll": {}
         }
