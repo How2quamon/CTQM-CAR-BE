@@ -108,9 +108,22 @@
           "Microsoft.AspNetCore.App"
         ]
       },
+      "CTQM_CAR.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/CTQM_CAR.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CTQM_CAR.Domain.dll": {}
+        }
+      },
       "CTQM_CAR.Shared/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "CTQM_CAR.Domain": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/CTQM_CAR.Shared.dll": {}
         },
@@ -461,6 +474,11 @@
         "swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
+    },
+    "CTQM_CAR.Domain/1.0.0": {
+      "type": "project",
+      "path": "../CTQM_CAR.Domain/CTQM_CAR.Domain.csproj",
+      "msbuildProject": "../CTQM_CAR.Domain/CTQM_CAR.Domain.csproj"
     },
     "CTQM_CAR.Shared/1.0.0": {
       "type": "project",

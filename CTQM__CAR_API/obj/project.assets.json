@@ -1364,6 +1364,9 @@
       "CTQM_CAR.Shared/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "CTQM_CAR.Domain": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/CTQM_CAR.Shared.dll": {}
         },

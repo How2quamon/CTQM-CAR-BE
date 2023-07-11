@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {}
+    "net7.0": {
+      "CTQM_CAR.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/CTQM_CAR.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CTQM_CAR.Domain.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "CTQM_CAR.Domain/1.0.0": {
+      "type": "project",
+      "path": "../CTQM_CAR.Domain/CTQM_CAR.Domain.csproj",
+      "msbuildProject": "../CTQM_CAR.Domain/CTQM_CAR.Domain.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net7.0": []
+    "net7.0": [
+      "CTQM_CAR.Domain >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\thejo\\.nuget\\packages\\": {},
@@ -39,7 +58,11 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\thejo\\source\\NET\\CTQM-CAR-BE\\CTQM_CAR.Domain\\CTQM_CAR.Domain.csproj": {
+              "projectPath": "C:\\Users\\thejo\\source\\NET\\CTQM-CAR-BE\\CTQM_CAR.Domain\\CTQM_CAR.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

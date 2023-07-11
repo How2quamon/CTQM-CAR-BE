@@ -34,3 +34,6 @@ C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR.Shared\obj\Debug\net7.0\CTQM_CAR.
 C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR.Shared\obj\Debug\net7.0\refint\CTQM_CAR.Shared.dll
 C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR.Shared\obj\Debug\net7.0\CTQM_CAR.Shared.pdb
 C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR.Shared\obj\Debug\net7.0\ref\CTQM_CAR.Shared.dll
+C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR.Shared\bin\Debug\net7.0\CTQM_CAR.Domain.dll
+C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR.Shared\bin\Debug\net7.0\CTQM_CAR.Domain.pdb
+C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR.Shared\obj\Debug\net7.0\CTQM_CAR.Shared.csproj.CopyComplete

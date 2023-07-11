@@ -68,3 +68,5 @@ C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR_HEADER\obj\Debug\net7.0\refint\CT
 C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR_HEADER\obj\Debug\net7.0\CTQM_CAR_HEADER.pdb
 C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR_HEADER\obj\Debug\net7.0\CTQM_CAR_HEADER.genruntimeconfig.cache
 C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR_HEADER\obj\Debug\net7.0\ref\CTQM_CAR_HEADER.dll
+C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR_HEADER\bin\Debug\net7.0\CTQM_CAR.Domain.dll
+C:\Users\thejo\source\NET\CTQM-CAR-BE\CTQM_CAR_HEADER\bin\Debug\net7.0\CTQM_CAR.Domain.pdb

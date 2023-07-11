@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CTQM_CAR.Domain\CTQM_CAR.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
