@@ -9,6 +9,7 @@ namespace CTQM_CAR.Repositories.IRepository
 {
 	public interface ICartRepository : IRepository<Cart>
 	{
-
+		Task<List<Cart>> GetCustomerCart(Guid customerId);
+		Task<bool> DeleteCustomerCart(Guid customerId);
 	}
 }
