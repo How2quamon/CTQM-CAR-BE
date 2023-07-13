@@ -18,9 +18,9 @@ namespace CTQM_CAR.Shared.DTO.CarDTO
 
 		public string? CarEngine { get; set; }
 
-		public int? CarAmount { get; set; }
+		public int CarAmount { get; set; }
 
-		public double? CarPrice { get; set; }
+		public double CarPrice { get; set; }
 
 		public string? MoTa { get; set; }
 
