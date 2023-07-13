@@ -1,4 +1,4 @@
-﻿using CTQM__CAR_API.CTQM_CAR.Domain;
+﻿using CTQM_CAR.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +11,5 @@ namespace CTQM_CAR.Repositories.IRepository
 	{
 		Task<List<Cart>> GetCustomerCart(Guid customerId);
 		Task<bool> DeleteCustomerCart(Guid customerId);
-	}
+    }
 }

@@ -2,7 +2,7 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using CTQM__CAR_API.CTQM_CAR.Domain;
+using CTQM_CAR.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace CTQM__CAR_API.CTQM_CAR.Infrastructure;
