@@ -2,6 +2,7 @@
 using CTQM_CAR.Shared.DTO.CustomerDTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Ram_New_API.Identity;
 
 namespace CTQM__CAR_API.Controllers
 {
@@ -16,10 +17,147 @@ namespace CTQM__CAR_API.Controllers
 			_customerService = customerService;
 		}
 
+		//[HttpPost("Login")]
+		//public async Task<ActionResult> CustomerLogin([FromBody] CustomerLoginDTO login)
+		//{
+		//	try
+		//	{
+		//		// Check The Validation
+		//		var validator = new CustomerLoginValidator();
+		//		ValidationResult validaResult = await validator.ValidateAsync(login);
+		//		if (!validaResult.IsValid)
+		//			return BadRequest(validaResult.Errors);
 
-		// Login
+		//		// GetCustomer Being Loging
+		//		var CustomerLogin = await _CustomerService.GetCustomerByEmail(login.Email);
+		//		if (CustomerLogin != null)
+		//		{
+		//			if (CustomerLogin.Email == login.Email && CustomerLogin.Password == login.Password)
+		//			{
+		//				bool tokenExist = await _tokenService.CheckTokenExist(CustomerLogin.Id);
+		//				bool tokenExpire = await _tokenService.CheckTokenExpire(CustomerLogin.Id);
+		//				if (login.Email == "thejohan39@gmail.com") CustomerLogin.admin = true;
+		//				// Check Does Customer Had JWT
+		//				// Check Does JWT Had Expired
+		//				if (tokenExist && tokenExpire || !tokenExist)
+		//				{
+		//					// Check Generate Token Success
+		//					IdentityController identity = new IdentityController(_jWTManagerRepository);
+		//					string token = identity.GenerateCustomerToken(CustomerLogin);
+		//					bool setCache = await _tokenService.SetCustomerLoginIfo(CustomerLogin.Id, token);
+		//					if (setCache)
+		//					{
+		//						Console.WriteLine(token);
+		//						return Ok(new
+		//						{
+		//							message = "Ready To Login.",
+		//							tokenPass = token,
+		//							CustomerId = CustomerLogin.Id,
+		//							CustomerName = CustomerLogin.Name
+		//						});
+		//					}
+		//					return Ok("Set Cache Failed.");
+		//				}
+		//				if (tokenExist && !tokenExpire)
+		//				{
+		//					// Get Customer Current Token
+		//					string currentToken = await _tokenService.GetCustomerToken(CustomerLogin.Id);
+		//					return Ok(new
+		//					{
+		//						message = "Ready To Login.",
+		//						tokenPass = currentToken,
+		//						CustomerId = CustomerLogin.Id,
+		//						CustomerName = CustomerLogin.Name
+		//					});
+		//				}
+		//			}
+		//			return Ok(new { message = "Password or Email doesn't match." });
+		//		}
+		//		return Ok("No Customer Found.");
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		return BadRequest(ex.Message);
+		//	}
+		//}
 
-		// LogOut
+		//[HttpPost("RefreshToken/{id}")]
+		//public async Task<ActionResult> RefreshToken([FromRoute] string id)
+		//{
+		//	try
+		//	{
+		//		// Check Does Customer Had JWT
+		//		// Check Does JWT Had Expired
+		//		bool tokenExist = await _tokenService.CheckTokenExist(id);
+		//		bool tokenExpire = await _tokenService.CheckTokenExpire(id);
+		//		if (tokenExist)
+		//		{
+		//			// Get CustomerCurrent JWT
+		//			string currentToken = await _tokenService.GetCustomerToken(id);
+		//			// Get Current Customer JWT And Current Customer Info Need To Create New Token
+		//			CustomerTokenDTO CustomerData = await _tokenService.GetCustomerLoginIfo(id);
+		//			// GetIdentity Controller To Call GenerateToken Func
+		//			IdentityController identity = new IdentityController(_jWTManagerRepository);
+		//			// The Token Had Expire
+		//			if (tokenExpire)
+		//			{
+		//				// Check Generate Token Success
+		//				var newToken = identity.GenerateCustomerToken(CustomerData);
+		//				bool setCache = await _tokenService.SetCustomerLoginIfo(id, newToken);
+		//				if (setCache)
+		//				{
+		//					Console.WriteLine(newToken);
+		//					return Ok("Your Token's Had Expired, So We Create For You A New One.");
+		//				}
+		//				return Ok("Set Cache Failed.");
+		//			}
+		//			// The Token Hasn't Expire Yet
+		//			else
+		//			{
+		//				// Check Generate Token Success
+		//				var newToken = identity.GenerateCustomerToken(CustomerData);
+		//				bool setCache = await _tokenService.SetCustomerLoginIfo(id, newToken);
+		//				if (setCache)
+		//				{
+		//					// Block the old token
+		//					await _tokenService.SetCustomerOldTokenBlackList(currentToken);
+		//					Console.WriteLine(newToken);
+		//					return Ok("Your Token's Hasn't Expired Yet, But We Still Create For You A New Token.");
+		//				}
+		//				return Ok("Set Cache Failed.");
+		//			}
+		//		}
+		//		return Ok("You Doesn't Has Token, Login To Get One!");
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		return BadRequest(ex.Message);
+		//	}
+		//}
+
+		//[HttpPost("LogOut/{id}")]
+		//public async Task<ActionResult> CustomerLogOut([FromRoute] string id)
+		//{
+		//	try
+		//	{
+		//		// Check Does Customer Had JWT
+		//		bool tokenExist = await _tokenService.CheckTokenExist(id);
+		//		if (tokenExist)
+		//		{
+		//			// Check Remove Token Success
+		//			bool removeCache = await _tokenService.RemoveCustomerToken(id);
+		//			if (removeCache)
+		//				return Ok("Remove Customer Token Success");
+		//			return Ok("Remove Token Failed.");
+		//		}
+		//		return Ok("You Doesn't Has Token, Login To Get One!");
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		return BadRequest(ex.Message);
+		//	}
+		//}
+
 
 		// GetAllCustomer
 		[HttpGet("GetAllCustomer")]
@@ -32,10 +170,10 @@ namespace CTQM__CAR_API.Controllers
 		}
 
 		// GetProfile
-		[HttpGet("UserInfo/{id}")]
+		[HttpGet("CustomerInfo/{id}")]
 		public async Task<ActionResult<CustomerDTO>> GetCustomerProfile([FromRoute] Guid customerId)
 		{
-			// CheckUserExist
+			// CheckCustomerExist
 			var customerData = await _customerService.GetProfileById(customerId);
 			if (customerData == null)
 				return BadRequest("No Customer Found.");
@@ -85,6 +223,7 @@ namespace CTQM__CAR_API.Controllers
 		}
 
 		// DeleteCustomer
+		[RequiresClaim(IdentityData.AdminCustomerClaimName, "true")]
 		[HttpDelete("DeleteCustomer/{id}")]
 		public async Task<ActionResult> DeleteCustomer([FromRoute] Guid id)
 		{
