@@ -18,7 +18,7 @@ namespace CTQM_CAR.Service.Service.Implement
 			_cache = cache;
 		}
 
-		public async Task<bool> SetCustomerLoginIfo(string customerId, string token)
+		public async Task<bool> SetCustomerLoginIfo(Guid customerId, string token)
 		{
 			try
 			{
@@ -26,7 +26,7 @@ namespace CTQM_CAR.Service.Service.Implement
 				//{
 				//	AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(20)
 				//};
-				await _cache.SetStringAsync(customerId, token);
+				await _cache.SetStringAsync(customerId.ToString("D"), token);
 				return true;
 			}
 			catch (Exception ex)
@@ -36,11 +36,11 @@ namespace CTQM_CAR.Service.Service.Implement
 			}
 		}
 
-		public async Task<bool> CheckTokenExist(string customerId)
+		public async Task<bool> CheckTokenExist(Guid customerId)
 		{
 			try
 			{
-				var token = await _cache.GetStringAsync(customerId);
+				var token = await _cache.GetStringAsync(customerId.ToString("D"));
 				if (token != null)
 					return true;
 				return false;
@@ -52,11 +52,11 @@ namespace CTQM_CAR.Service.Service.Implement
 			}
 		}
 
-		public async Task<bool> CheckTokenExpire(string customerId)
+		public async Task<bool> CheckTokenExpire(Guid customerId)
 		{
 			try
 			{
-				var token = await _cache.GetStringAsync(customerId);
+				var token = await _cache.GetStringAsync(customerId.ToString("D"));
 				if (token != null)
 				{
 					var jwtHandler = new JwtSecurityTokenHandler();
@@ -81,11 +81,11 @@ namespace CTQM_CAR.Service.Service.Implement
 			}
 		}
 
-		public async Task<string> GetCustomerToken(string customerId)
+		public async Task<string> GetCustomerToken(Guid customerId)
 		{
 			try
 			{
-				return await _cache.GetStringAsync(customerId);
+				return await _cache.GetStringAsync(customerId.ToString("D"));
 			}
 			catch (Exception ex)
 			{
@@ -94,11 +94,11 @@ namespace CTQM_CAR.Service.Service.Implement
 			}
 		}
 
-		public async Task<CustomerTokenDTO> GetCustomerLoginIfo(string customerId)
+		public async Task<CustomerTokenDTO> GetCustomerLoginIfo(Guid customerId)
 		{
 			try
 			{
-				var token = await _cache.GetStringAsync(customerId);
+				var token = await _cache.GetStringAsync(customerId.ToString("D"));
 				if (token != null)
 				{
 					var tokenHandler = new JwtSecurityTokenHandler();
@@ -106,7 +106,7 @@ namespace CTQM_CAR.Service.Service.Implement
 
 					// Get Claims List From JWT
 					var claims = jwtToken.Claims.ToList();
-					string id = "";
+					Guid id = Guid.Empty;
 					string name = "";
 					string email = "";
 					string password = "";
@@ -117,7 +117,7 @@ namespace CTQM_CAR.Service.Service.Implement
 						var claimType = claim.Type;
 						var claimValue = claim.Value;
 						if (claim.Type == "CustomerId")
-							id = claimValue;
+							id = Guid.Parse(claimValue);
 						if (claim.Type == JwtRegisteredClaimNames.Sub)
 							name = claimValue;
 						if (claim.Type == JwtRegisteredClaimNames.Email)
@@ -147,11 +147,11 @@ namespace CTQM_CAR.Service.Service.Implement
 			}
 		}
 
-		public async Task<bool> RemoveCustomerToken(string customerId)
+		public async Task<bool> RemoveCustomerToken(Guid customerId)
 		{
 			try
 			{
-				await _cache.RemoveAsync(customerId);
+				await _cache.RemoveAsync(customerId.ToString("D"));
 				return true;
 			}
 			catch (Exception ex)
@@ -217,7 +217,7 @@ namespace CTQM_CAR.Service.Service.Implement
 				var jwtToken = tokenHandler.ReadJwtToken(token);
 
 				// Get Claims List From JWT
-				string id = jwtToken.Claims.FirstOrDefault(c => c.Type == "CustomerId")?.Value;
+				Guid id = Guid.Parse(jwtToken.Claims.FirstOrDefault(c => c.Type == "CustomerId")?.Value);
 				if (id != null)
 				{
 					var CustomerCurrentToken = await GetCustomerToken(id);
@@ -243,7 +243,7 @@ namespace CTQM_CAR.Service.Service.Implement
 				var jwtToken = tokenHandler.ReadJwtToken(token);
 
 				// Get Claims List From JWT
-				string id = jwtToken.Claims.FirstOrDefault(c => c.Type == "CustomerId")?.Value;
+				Guid id = Guid.Parse(jwtToken.Claims.FirstOrDefault(c => c.Type == "CustomerId")?.Value);
 				if (id != null)
 				{
 					var isExpired = await CheckTokenExpire(id);

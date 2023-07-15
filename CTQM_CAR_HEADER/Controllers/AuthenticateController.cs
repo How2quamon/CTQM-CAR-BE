@@ -1,4 +1,5 @@
 ﻿using CTQM_CAR.Shared.DTO.CustomerDTO;
+using CTQM_CAR_HEADER.IRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -12,36 +13,25 @@ namespace CTQM_CAR_HEADER.Controllers
 	[ApiController]
 	public class AuthenticateController : ControllerBase
 	{
-		private readonly IConfiguration? _configuration;
+		private readonly IAuthenticateRepo _authenticate;
 
-		public string Authenticate(CustomerTokenDTO Customer)
+		public AuthenticateController(IAuthenticateRepo authenticate)
 		{
-			var tokenHandler = new JwtSecurityTokenHandler();
-			var tokenKey = Encoding.UTF8.GetBytes(_configuration["JwtSettings:Key"]);
+			_authenticate = authenticate;
+		}
 
-			var claims = new List<Claim>
+		[HttpPost("Login")]
+		public string GenerateCustomerToken([FromBody] CustomerTokenDTO customer)
+		{
+			try
 			{
-				new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-				new(JwtRegisteredClaimNames.Sub, Customer.Name),
-				new(JwtRegisteredClaimNames.Email, Customer.Email),
-				new("admin", Customer.admin.ToString()!, ClaimValueTypes.Boolean),
-				new("Password", Customer.Password),
-				new("CustomerId", Customer.Id)
-			};
-
-			var tokenDescriptior = new SecurityTokenDescriptor
+				var token = _authenticate.Authenticate(customer);
+				return token;
+			}
+			catch (Exception ex)
 			{
-				Subject = new ClaimsIdentity(claims),
-				//Expires = DateTime.UtcNow.AddMinutes(20),
-				Issuer = _configuration["JwtSettings:Issuer"],
-				Audience = _configuration["JwtSettings:Audience"],
-				SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256)
-			};
-
-			var token = tokenHandler.CreateToken(tokenDescriptior);
-			Console.WriteLine(token);
-
-			return tokenHandler.WriteToken(token);
+				return ex.Message;
+			}
 		}
 	}
 }
