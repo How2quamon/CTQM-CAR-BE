@@ -1,6 +1,7 @@
 ﻿
 using CTQM_CAR.Service.Service.Interface;
 using CTQM_CAR.Shared.DTO.CarDetailDTO;
+using CTQM_CAR.Shared.DTO.CarDTO;
 using CTQM_CAR.Shared.DTO.OrderDTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -30,21 +31,9 @@ namespace CTQM__CAR_API.Controllers
                 //if (!validaResult.IsValid)
                 //return BadRequest(validaResult.Errors);
 
-                // Create New Order
-                //Random rnd = new Random();
-                Guid id = Guid.NewGuid();
-                var order = new OrderDTO
-                {
-                    OrderId = id,
-                    CarId = _order.CarId,
-                    OrderDate = _order.OrderDate,
-                    OrderStatus = _order.OrderStatus,
-                    Amount = _order.Amount,
-                    TotalPrice = _order.TotalPrice,
-                    CustomerId = _order.CustomerId,
-                };
 
                 // Add New Order
+                OrderDTO order = new OrderDTO();
                 await _orderService.AddOrder(order);
                 return Ok(new
                 {
@@ -93,20 +82,9 @@ namespace CTQM__CAR_API.Controllers
                 bool isExist = await _orderService.FindOrderById(id);
                 if (isExist)
                 {
-                    //Create New OrderDTO
-                    var orderData = new OrderDTO
-                    {
-                        OrderId = id,
-                        CarId = _orderDTO.CarId,
-                        OrderDate = _orderDTO.OrderDate,
-                        OrderStatus = _orderDTO.OrderStatus,
-                        Amount = _orderDTO.Amount,
-                        TotalPrice = _orderDTO.TotalPrice,
-                        CustomerId = _orderDTO.CustomerId,
-                    };
-
+                    
                     //Update Order
-                    await _orderService.UpdateOrder(orderData);
+                    await _orderService.UpdateOrder(_orderDTO);
                     return Ok(new
                     {
                         message = "Update Order Success."
@@ -137,6 +115,39 @@ namespace CTQM__CAR_API.Controllers
                     return Ok(new
                     {
                         message = "Delete Order Success."
+                    });
+                }
+                else
+                    return NotFound("No Order Found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        //Update order status by id
+        [HttpPut("UpdateOrderStatus/{id}")]
+        public async Task<ActionResult<OrderDTO>> UpdateOrderStatus([FromRoute] Guid id, [FromBody] bool orderStatus)
+        {
+            try
+            {
+                // Check validation
+                //var validator = new UpdateCommentValidator();
+                //ValidationResult validaResult = await validator.ValidateAsync(updateComment);
+                //if (!validaResult.IsValid)
+                //return BadRequest(validaResult.Errors);
+
+                // Check Exist
+                
+                bool isExist = await _orderService.FindOrderById(id);
+                if (isExist)
+                {
+                    OrderDTO _orderDTO = await _orderService.GetOrderById(id);
+                    await _orderService.UpdateStatus(_orderDTO, orderStatus);
+                    return Ok(new
+                    {
+                        message = "Update Car Success."
                     });
                 }
                 else

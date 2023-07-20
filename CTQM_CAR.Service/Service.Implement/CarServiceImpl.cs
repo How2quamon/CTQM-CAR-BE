@@ -4,6 +4,8 @@ using CTQM_CAR.Service.Service.Interface;
 using CTQM_CAR.Shared.DTO.CarDetailDTO;
 using CTQM_CAR.Shared.DTO.CarDTO;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Runtime.Intrinsics.X86;
 
 namespace CTQM_CAR.Service.Service.Implement
 {
@@ -67,9 +69,10 @@ namespace CTQM_CAR.Service.Service.Implement
 
         public async Task AddCar(CarDTO car)
         {
+            Guid id = Guid.NewGuid();
             var carData = new Car
             {
-                CarId = car.CarId,
+                CarId = id,
                 CarName = car.CarName,
                 CarModel = car.CarModel,
                 CarClass = car.CarClass,
@@ -119,6 +122,50 @@ namespace CTQM_CAR.Service.Service.Implement
                 _unitOfWork.carsRepo.Update(carContent);
                 await _unitOfWork.SaveAsync();
             }
+        }
+
+        public async Task<List<CarDTO>> GetCarByName(string carName)
+        {
+            //return await _unitOfWork.carsRepo.GetByName(carName);
+            List<CarDTO> cars = new List<CarDTO>();
+            foreach (var car in await _unitOfWork.carsRepo.GetByName(carName))
+            {
+                CarDTO carDTO = new CarDTO();
+                carDTO.CarId = car.CarId;
+                carDTO.CarName = car.CarName;
+                carDTO.CarModel = car.CarModel;
+                carDTO.CarClass = car.CarClass;
+                carDTO.CarEngine = car.CarEngine;
+                carDTO.CarAmount = car.CarAmount;
+                carDTO.CarPrice = car.CarPrice;
+                carDTO.MoTa = car.MoTa;
+                carDTO.Head1 = car.Head1;
+                carDTO.MoTa2 = car.MoTa2;
+                cars.Add(carDTO);
+            }
+            return cars;
+        }
+
+        public async Task<List<CarDTO>> GetCarByType(string carType)
+        {
+            //return await _unitOfWork.carsRepo.GetByName(carName);
+            List<CarDTO> cars = new List<CarDTO>();
+            foreach (var car in await _unitOfWork.carsRepo.GetByType(carType))
+            {
+                CarDTO carDTO = new CarDTO();
+                carDTO.CarId = car.CarId;
+                carDTO.CarName = car.CarName;
+                carDTO.CarModel = car.CarModel;
+                carDTO.CarClass = car.CarClass;
+                carDTO.CarEngine = car.CarEngine;
+                carDTO.CarAmount = car.CarAmount;
+                carDTO.CarPrice = car.CarPrice;
+                carDTO.MoTa = car.MoTa;
+                carDTO.Head1 = car.Head1;
+                carDTO.MoTa2 = car.MoTa2;
+                cars.Add(carDTO);
+            }
+            return cars;
         }
     }
 }

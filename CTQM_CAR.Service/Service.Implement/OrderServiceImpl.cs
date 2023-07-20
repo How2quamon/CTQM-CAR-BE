@@ -15,9 +15,10 @@ namespace CTQM_CAR.Service.Service.Implement
 
         public async Task AddOrder(OrderDTO _orderDTO)
         {
+            Guid id = Guid.NewGuid();
             var orderData = new Order
             {
-                OrderId = _orderDTO.OrderId,
+                OrderId = id,
                 CarId = _orderDTO.CarId,
                 OrderDate = _orderDTO.OrderDate,
                 OrderStatus = _orderDTO.OrderStatus,
@@ -83,6 +84,24 @@ namespace CTQM_CAR.Service.Service.Implement
                     orderContent.CustomerId = _orderDTO.CustomerId;
 
 
+                _unitOfWork.ordersRepo.Update(orderContent);
+                await _unitOfWork.SaveAsync();
+            }
+        }
+
+        public async Task UpdateStatus(OrderDTO _orderDTO, bool _status)
+        {
+            Order orderContent = await _unitOfWork.ordersRepo.GetById(_orderDTO.OrderId);
+
+            if (orderContent != null)
+            {
+
+                if (_status)
+                {
+                    orderContent.OrderStatus = "PayPal";
+                }
+                else orderContent.OrderStatus = "COD";
+                
                 _unitOfWork.ordersRepo.Update(orderContent);
                 await _unitOfWork.SaveAsync();
             }

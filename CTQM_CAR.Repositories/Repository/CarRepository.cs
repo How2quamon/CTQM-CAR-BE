@@ -12,12 +12,30 @@ using System.Threading.Tasks;
 namespace CTQM_CAR.Repositories.Repository
 {
 	public class CarRepository : Repository<Car>, ICarRepository
+
 	{
-		public CarRepository(MEC_DBContext context) : base(context) { }
+        
+        public CarRepository(MEC_DBContext context) : base(context) { }
 
 		public MEC_DBContext MecDBContext
 		{
 			get { return _context as MEC_DBContext; }
 		}
-	}
+
+        public async Task<List<Car>> GetByName(string carName)
+        {
+            return await MecDBContext.Cars
+                .Where(c => c.CarName.Contains(carName))
+                //.FirstOrDefaultAsync()
+                .ToListAsync();
+        }
+
+        public async Task<List<Car>> GetByType(string carType)
+        {
+            return await MecDBContext.Cars
+                .Where(c => c.CarClass.Contains(carType))
+                //.FirstOrDefaultAsync()
+                .ToListAsync();
+        }
+    }
 }
