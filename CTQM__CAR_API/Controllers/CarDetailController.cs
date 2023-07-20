@@ -31,7 +31,7 @@ namespace CTQM__CAR_API.Controllers
 
                 // Create New Comment
                 //Random rnd = new Random();
-                Guid id = Guid.NewGuid();
+                /*Guid id = Guid.NewGuid();
                 var carDetail = new CarDetailDTO
                 {
                     DetailId = id,
@@ -42,9 +42,10 @@ namespace CTQM__CAR_API.Controllers
                     Title2  = _carDetail.Title2,
                     Head3 = _carDetail.Head3,
                     Title3  = _carDetail.Title3,
-                };
+                };*/
 
                 // Add New Comment
+                CarDetailDTO carDetail = new CarDetailDTO();
                 await _carDetailService.AddCarDetail(carDetail);
                 return Ok(new
                 {
@@ -92,7 +93,7 @@ namespace CTQM__CAR_API.Controllers
                 if (isExist)
                 {
                     //Create New CarDetailDTO
-                    var carDetailData = new CarDetailDTO
+                    /*var carDetailData = new CarDetailDTO
                     {
                         DetailId = id,
                         CarId = carDetail.CarId,
@@ -102,9 +103,10 @@ namespace CTQM__CAR_API.Controllers
                         Title2 = carDetail.Title2,
                         Head3 = carDetail.Head3,
                         Title3 = carDetail.Title3,
-                    };
+                    };*/
 
                     //Update CarDetail
+                    CarDetailDTO carDetailData = await _carDetailService.GetCarDetailById(id);
                     await _carDetailService.UpdateCarDetail(carDetailData);
                     return Ok(new
                     {

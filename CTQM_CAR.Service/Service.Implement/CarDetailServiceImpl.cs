@@ -18,9 +18,10 @@ namespace CTQM_CAR.Service.Service.Implement
 
         public async Task AddCarDetail(CarDetailDTO carDetailDTO)
         {
+            Guid id = Guid.NewGuid();
             var carDetailData = new CarDetail
             {
-                DetailId = carDetailDTO.DetailId,
+                DetailId = id,
                 CarId = carDetailDTO.CarId,
                 Head1 = carDetailDTO.Head1,
                 Head2 = carDetailDTO.Head2,

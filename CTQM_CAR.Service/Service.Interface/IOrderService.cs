@@ -9,5 +9,6 @@ namespace CTQM_CAR.Service.Service.Interface
         Task<bool> FindOrderById(Guid id);
         Task<OrderDTO> GetOrderById(Guid id);
         Task UpdateOrder(OrderDTO _orderDTO);
+        Task UpdateStatus(OrderDTO _orderData, bool _orderStatus);
     }
 }
