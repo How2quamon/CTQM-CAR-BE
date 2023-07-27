@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="PayPal" Version="1.9.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CTQM_CAR.Repositories\CTQM_CAR.Repositories.csproj" />
     <ProjectReference Include="..\CTQM_CAR.Shared\CTQM_CAR.Shared.csproj" />
   </ItemGroup>

@@ -44,6 +44,8 @@ builder.Services.AddTransient<ICartService, CartServiceImpl>();
 builder.Services.AddTransient<ICustomerService, CustomerServiceImpl>();
 builder.Services.AddTransient<IOrderService, OrderServiceImpl>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddTransient<IPaypalService, PaypalServiceImpl>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddTransient<IAuthenticateRepo, AuthenticateRepo>();
 
 var app = builder.Build();

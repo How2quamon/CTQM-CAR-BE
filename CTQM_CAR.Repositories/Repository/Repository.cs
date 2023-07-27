@@ -29,6 +29,14 @@ namespace CTQM_CAR.Repositories.Repository
 			return await _dbSet.FindAsync(id);
 		}
 
+		/*public async Task<List<TEntity>> GetCarByName(string carName)
+		{
+            return await _dbSet.Car
+                .Where(c => c.Car.Id == carName)
+                .Select(c => c.Name)
+                .FirstOrDefaultAsync();
+        }*/
+
 		public async Task<TEntity> Add(TEntity entity)
 		{
 			await _dbSet.AddAsync(entity);

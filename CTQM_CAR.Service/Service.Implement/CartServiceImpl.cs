@@ -98,7 +98,18 @@ namespace CTQM_CAR.Service.Service.Implement
 			return cartResult;
 		}
 
-		public async Task<CustomerCartDTO> GetCustomerCart(Guid customerId)
+        public async Task<CartDTO> GetCartById(Guid _cartId)
+        {
+            Cart cartData = await _unitOfWork.cartsRepo.GetById(_cartId);
+            CartDTO cart = new CartDTO();
+            cart.CartId = cartData.CartId;
+            cart.CarId = cartData.CarId;
+            cart.Amount = cartData.Amount;
+            cart.Price = cartData.Price;
+            return cart;
+        }
+
+        public async Task<CustomerCartDTO> GetCustomerCart(Guid customerId)
 		{
 			try
 			{

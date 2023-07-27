@@ -10,5 +10,6 @@ namespace CTQM_CAR.Service.Service.Interface
 		Task<CartDTO> UpdateCustomerCart(Guid cartId, int amount);
 		Task<bool> DeleteCart(Guid cartId);
 		Task<bool> DeleteCustomerCart(Guid customerId);
-	}
+        Task<CartDTO> GetCartById(Guid cartId);
+    }
 }

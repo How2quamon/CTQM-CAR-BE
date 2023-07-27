@@ -775,6 +775,35 @@
           "lib/netstandard2.0/Mono.TextTemplating.dll": {}
         }
       },
+      "Newtonsoft.Json/7.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "PayPal/1.9.1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "7.0.1"
+        },
+        "compile": {
+          "lib/net451/PayPal.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net451/PayPal.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore/6.4.0": {
         "type": "package",
         "dependencies": {
@@ -1352,7 +1381,8 @@
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "CTQM_CAR.Repositories": "1.0.0",
-          "CTQM_CAR.Shared": "1.0.0"
+          "CTQM_CAR.Shared": "1.0.0",
+          "PayPal": "1.9.1"
         },
         "compile": {
           "bin/placeholder/CTQM_CAR.Service.dll": {}
@@ -1381,7 +1411,8 @@
           "CTQM_CAR.Shared": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.8",
           "Microsoft.AspNetCore.OpenApi": "7.0.0",
-          "Swashbuckle.AspNetCore": "6.4.0"
+          "Swashbuckle.AspNetCore": "6.4.0",
+          "System.IdentityModel.Tokens.Jwt": "6.21.0"
         },
         "compile": {
           "bin/placeholder/CTQM_CAR_HEADER.dll": {}
@@ -2698,6 +2729,48 @@
         "lib/netstandard2.0/Mono.TextTemplating.dll",
         "mono.texttemplating.2.2.1.nupkg.sha512",
         "mono.texttemplating.nuspec"
+      ]
+    },
+    "Newtonsoft.Json/7.0.1": {
+      "sha512": "q3V4KLetMLnt1gpAVWgtXnHjKs0UG/RalBc29u2ZKxd5t5Ze4JBL5WiiYIklJyK/5CRiIiNwigVQUo0FgbsuWA==",
+      "type": "package",
+      "path": "newtonsoft.json/7.0.1",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.xml",
+        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll",
+        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.xml",
+        "newtonsoft.json.7.0.1.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "tools/install.ps1"
+      ]
+    },
+    "PayPal/1.9.1": {
+      "sha512": "b3vq6Lc9CwSooCX2tsZ02zb7E/K/cA6EILCoMynue+ZeVuitJNqt0YwxPnp7uN0Pccob02oDlpAjRLH+GRCRxA==",
+      "type": "package",
+      "path": "paypal/1.9.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/PayPal.dll",
+        "lib/net40/PayPal.xml",
+        "lib/net45/PayPal.dll",
+        "lib/net45/PayPal.xml",
+        "lib/net451/PayPal.dll",
+        "lib/net451/PayPal.xml",
+        "paypal.1.9.1.nupkg.sha512",
+        "paypal.nuspec"
       ]
     },
     "Swashbuckle.AspNetCore/6.4.0": {
@@ -4172,28 +4245,24 @@
       "Microsoft.EntityFrameworkCore.Relational >= 7.0.8",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.8",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.8",
+      "PayPal >= 1.9.1",
       "Swashbuckle.AspNetCore >= 6.4.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\thejo\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\ACER Aspire 7\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\thejo\\source\\NET\\CTQM-CAR-BE\\CTQM__CAR_API\\CTQM__CAR_API.csproj",
+      "projectUniqueName": "D:\\Study\\27072023\\CTQM__CAR_API\\CTQM__CAR_API.csproj",
       "projectName": "CTQM__CAR_API",
-      "projectPath": "C:\\Users\\thejo\\source\\NET\\CTQM-CAR-BE\\CTQM__CAR_API\\CTQM__CAR_API.csproj",
-      "packagesPath": "C:\\Users\\thejo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\thejo\\source\\NET\\CTQM-CAR-BE\\CTQM__CAR_API\\obj\\",
+      "projectPath": "D:\\Study\\27072023\\CTQM__CAR_API\\CTQM__CAR_API.csproj",
+      "packagesPath": "C:\\Users\\ACER Aspire 7\\.nuget\\packages\\",
+      "outputPath": "D:\\Study\\27072023\\CTQM__CAR_API\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\thejo\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\ACER Aspire 7\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4201,21 +4270,21 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\thejo\\source\\NET\\CTQM-CAR-BE\\CTQM_CAR.Service\\CTQM_CAR.Service.csproj": {
-              "projectPath": "C:\\Users\\thejo\\source\\NET\\CTQM-CAR-BE\\CTQM_CAR.Service\\CTQM_CAR.Service.csproj"
+            "D:\\Study\\27072023\\CTQM_CAR.Service\\CTQM_CAR.Service.csproj": {
+              "projectPath": "D:\\Study\\27072023\\CTQM_CAR.Service\\CTQM_CAR.Service.csproj"
             },
-            "C:\\Users\\thejo\\source\\NET\\CTQM-CAR-BE\\CTQM_CAR.Shared\\CTQM_CAR.Shared.csproj": {
-              "projectPath": "C:\\Users\\thejo\\source\\NET\\CTQM-CAR-BE\\CTQM_CAR.Shared\\CTQM_CAR.Shared.csproj"
+            "D:\\Study\\27072023\\CTQM_CAR.Shared\\CTQM_CAR.Shared.csproj": {
+              "projectPath": "D:\\Study\\27072023\\CTQM_CAR.Shared\\CTQM_CAR.Shared.csproj"
             },
-            "C:\\Users\\thejo\\source\\NET\\CTQM-CAR-BE\\CTQM_CAR_HEADER\\CTQM_CAR_HEADER.csproj": {
-              "projectPath": "C:\\Users\\thejo\\source\\NET\\CTQM-CAR-BE\\CTQM_CAR_HEADER\\CTQM_CAR_HEADER.csproj"
+            "D:\\Study\\27072023\\CTQM_CAR_HEADER\\CTQM_CAR_HEADER.csproj": {
+              "projectPath": "D:\\Study\\27072023\\CTQM_CAR_HEADER\\CTQM_CAR_HEADER.csproj"
             }
           }
         }
@@ -4266,6 +4335,10 @@
             "target": "Package",
             "version": "[7.0.8, )"
           },
+          "PayPal": {
+            "target": "Package",
+            "version": "[1.9.1, )"
+          },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[6.4.0, )"
@@ -4290,8 +4363,30 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Newtonsoft.Json 7.0.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'PayPal 1.9.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "PayPal",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    }
+  ]
 }

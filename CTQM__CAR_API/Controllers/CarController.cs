@@ -1,8 +1,10 @@
 ﻿using CTQM_CAR.Service.Service.Interface;
 using CTQM_CAR.Shared.DTO.CarDetailDTO;
 using CTQM_CAR.Shared.DTO.CarDTO;
+using CTQM_CAR.Shared.DTO.CustomerDTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CTQM__CAR_API.Controllers
 {
@@ -58,8 +60,11 @@ namespace CTQM__CAR_API.Controllers
                 //return BadRequest(validaResult.Errors);
 
                 // Create New Comment
+
                 //Random rnd = new Random();
-                Guid id = Guid.NewGuid();
+
+
+                /*Guid id = Guid.NewGuid();
                 var car = new CarDTO
                 {
                     CarId = id,
@@ -72,9 +77,10 @@ namespace CTQM__CAR_API.Controllers
                     MoTa= _car.MoTa,
                     Head1 = _car.Head1,
                     MoTa2 = _car.MoTa2,
-                };
+                };*/
 
-                // Add New Comment
+                // Add New Car
+                CarDTO car = new CarDTO();
                 await _carService.AddCar(car);
                 return Ok(new
                 {
@@ -131,7 +137,7 @@ namespace CTQM__CAR_API.Controllers
                 if (isExist)
                 {
                     //Create New CarDTO
-                    var carData = new CarDTO
+                    /*var carData = new CarDTO
                     {
                         CarId = id,
                         CarName = car.CarName,
@@ -143,9 +149,10 @@ namespace CTQM__CAR_API.Controllers
                         MoTa = car.MoTa,
                         Head1 = car.Head1,
                         MoTa2 = car.MoTa2,
-                    };
+                    };*/
 
                     //Update Car
+                    CarDTO carData = new CarDTO();
                     await _carService.UpdateCar(carData);
                     return Ok(new
                     {
@@ -160,5 +167,29 @@ namespace CTQM__CAR_API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        //Search Car By Name
+        [HttpGet("GetCarByName/{carName}")]
+        public async Task<ActionResult<List<CarDTO>>> Search([FromRoute] string carName)
+        {
+            var car = await _carService.GetCarByName(carName);
+
+            // Check Get Car Success
+            if (car == null)
+                return NotFound("Get Car Failed.");
+            return Ok(car);
+        }
+
+        //Recommended Car By Type
+        [HttpGet("GetCarByType/{carType}")]
+        public async Task<IActionResult> Recommened(string? carType)
+        {
+            var car = await _carService.GetCarByType(carType);
+
+            if (car == null)
+                return NotFound("Get Car Failed.");
+            return Ok(car);
+        }
+
     }
 }
