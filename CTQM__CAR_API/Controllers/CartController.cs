@@ -26,14 +26,14 @@ namespace CTQM__CAR_API.Controllers
 		}
 
         // Get Cart By Id
-        [HttpGet("GetCart/{_cartId}")]
-        public async Task<CartDTO> GetCartById([FromRoute] Guid _cartId)
+        [HttpGet("GetCart/{cartId}")]
+        public async Task<CartDTO> GetCartById([FromRoute] Guid cartId)
         {
-            return await _cartService.GetCartById(_cartId);
+            return await _cartService.GetCartById(cartId);
         }
 
         // Get Customer Cart
-        [HttpGet("GetCustomerCart/{id}")]
+        [HttpGet("GetCustomerCart/{customerId}")]
 		public async Task<ActionResult<CustomerCartDTO>> GetCustomerCart([FromRoute] Guid customerId)
 		{
 			var data = await _cartService.GetCustomerCart(customerId);
@@ -41,12 +41,12 @@ namespace CTQM__CAR_API.Controllers
 			{
 				return BadRequest("Get Customer Cart Failed.");
 			}
-			return Ok(data);
+			return Ok(data.GetCustomerCarts());
 		}
 
 		// Add to Cart
 		[HttpPost("AddToCart")]
-		public async Task<ActionResult<CartNotiDTO>> AddToCart([FromBody] CartDTO cartData)
+		public async Task<ActionResult<CartNotiDTO>> AddToCart([FromBody] AddCartDTO cartData)
 		{
 			// Check Validate
 
@@ -58,11 +58,16 @@ namespace CTQM__CAR_API.Controllers
 		}
 
 		// Update Cart
-		[HttpPut("UpdateCart/{id}")]
-		public async Task<ActionResult<CartDTO>> UpdateCart([FromRoute] Guid cartId, [FromBody] int amount)
+		[HttpPut("UpdateCart/{cartId}")]
+		public async Task<ActionResult<CartDTO>> UpdateCart([FromRoute] Guid cartId, [FromBody] int amount = 1)
 		{
 			// Check Validate
-
+			if (amount < 0)
+			{
+				// Delete
+				await DeleteCart(cartId);
+				return Ok("Delete Cart Success.");
+			}
 			// Update Cart
 			var result = await _cartService.UpdateCustomerCart(cartId, amount);
 			if (result == null)
@@ -71,7 +76,7 @@ namespace CTQM__CAR_API.Controllers
 		}
 
 		// Delete Cart
-		[HttpDelete("DeleteCart/{id}")]
+		[HttpDelete("DeleteCart/{cartId}")]
 		public async Task<ActionResult> DeleteCart([FromRoute] Guid cartId)
 		{
 			// Delete Cart

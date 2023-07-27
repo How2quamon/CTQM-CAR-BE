@@ -2,9 +2,10 @@
 using CTQM_CAR.Shared.DTO.CustomerDTO;
 using CTQM_CAR_HEADER.Controllers;
 using CTQM_CAR_HEADER.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Ram_New_API.Identity;
+using CTQM_CAR_API.Identity;
 
 namespace CTQM__CAR_API.Controllers
 {
@@ -29,10 +30,6 @@ namespace CTQM__CAR_API.Controllers
 			try
 			{
 				// Check The Validation
-				//var validator = new CustomerLoginValidator();
-				//ValidationResult validaResult = await validator.ValidateAsync(login);
-				//if (!validaResult.IsValid)
-				//	return BadRequest(validaResult.Errors);
 
 				// GetCustomer Being Loging
 				var CustomerLogin = await _customerService.GetCustomerByEmail(login.Email);
@@ -176,7 +173,8 @@ namespace CTQM__CAR_API.Controllers
 		}
 
 		// GetProfile
-		[HttpGet("CustomerInfo/{id}")]
+		[Authorize]
+		[HttpGet("CustomerInfo/{customerId}")]
 		public async Task<ActionResult<CustomerDTO>> GetCustomerProfile([FromRoute] Guid customerId)
 		{
 			// CheckCustomerExist

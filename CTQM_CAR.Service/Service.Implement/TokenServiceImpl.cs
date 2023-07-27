@@ -22,11 +22,11 @@ namespace CTQM_CAR.Service.Service.Implement
 		{
 			try
 			{
-				//var options = new DistributedCacheEntryOptions
-				//{
-				//	AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(20)
-				//};
-				await _cache.SetStringAsync(customerId.ToString("D"), token);
+				var options = new DistributedCacheEntryOptions
+				{
+					AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(20)
+				};
+				await _cache.SetStringAsync(customerId.ToString(), token, options);
 				return true;
 			}
 			catch (Exception ex)
@@ -40,7 +40,7 @@ namespace CTQM_CAR.Service.Service.Implement
 		{
 			try
 			{
-				var token = await _cache.GetStringAsync(customerId.ToString("D"));
+				var token = await _cache.GetStringAsync(customerId.ToString());
 				if (token != null)
 					return true;
 				return false;
@@ -56,7 +56,7 @@ namespace CTQM_CAR.Service.Service.Implement
 		{
 			try
 			{
-				var token = await _cache.GetStringAsync(customerId.ToString("D"));
+				var token = await _cache.GetStringAsync(customerId.ToString());
 				if (token != null)
 				{
 					var jwtHandler = new JwtSecurityTokenHandler();
@@ -85,7 +85,7 @@ namespace CTQM_CAR.Service.Service.Implement
 		{
 			try
 			{
-				return await _cache.GetStringAsync(customerId.ToString("D"));
+				return await _cache.GetStringAsync(customerId.ToString());
 			}
 			catch (Exception ex)
 			{
@@ -98,7 +98,7 @@ namespace CTQM_CAR.Service.Service.Implement
 		{
 			try
 			{
-				var token = await _cache.GetStringAsync(customerId.ToString("D"));
+				var token = await _cache.GetStringAsync(customerId.ToString());
 				if (token != null)
 				{
 					var tokenHandler = new JwtSecurityTokenHandler();
@@ -151,7 +151,7 @@ namespace CTQM_CAR.Service.Service.Implement
 		{
 			try
 			{
-				await _cache.RemoveAsync(customerId.ToString("D"));
+				await _cache.RemoveAsync(customerId.ToString());
 				return true;
 			}
 			catch (Exception ex)

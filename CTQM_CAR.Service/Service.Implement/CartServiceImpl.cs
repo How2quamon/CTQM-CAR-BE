@@ -15,30 +15,39 @@ namespace CTQM_CAR.Service.Service.Implement
 			_unitOfWork = unitOfWork;
 		}
 
-		public async Task<CartNotiDTO> AddToCart(CartDTO cartData)
+		public async Task<CartNotiDTO> AddToCart(AddCartDTO cartData)
 		{
 			try
 			{
-				Guid newGuid = Guid.NewGuid();
-				Cart cartAdding = new Cart
+				// Check Cart exist
+				string check = await CheckCustomerCart(cartData.CustomerId, cartData.CarId);
+				if (check != null)
 				{
-					CartId = newGuid,
-					CustomerId = cartData.CustomerId,
-					CarId = cartData.CarId,
-					Amount = (int)cartData.Amount,
-					Price = (double)cartData.Price
-				};
-
-				var carData = await _unitOfWork.carsRepo.GetById(cartAdding.CarId);
+					Guid cartId = Guid.Parse(check);
+					await UpdateCustomerCart(cartId, 1);
+				}
+				else
+				{
+					Guid newGuid = Guid.NewGuid();
+					Cart cartAdding = new Cart
+					{
+						CartId = newGuid,
+						CustomerId = cartData.CustomerId,
+						CarId = cartData.CarId,
+						Amount = (int)cartData.Amount,
+						Price = (double)cartData.Price
+					};
+					await _unitOfWork.cartsRepo.Add(cartAdding);
+				}
+				var carData = await _unitOfWork.carsRepo.GetById(cartData.CarId);
 
 				CartNotiDTO cartResult = new CartNotiDTO
 				{
 					CarName = carData.CarName,
-					Amount = cartAdding.Amount,
-					Price = cartAdding.Price
+					Amount = (int) cartData.Amount,
+					Price = (double) cartData.Price
 				};
 
-				_unitOfWork.cartsRepo.Add(cartAdding);
 				await _unitOfWork.SaveAsync();
 				return cartResult;
 			}
@@ -100,13 +109,21 @@ namespace CTQM_CAR.Service.Service.Implement
 
         public async Task<CartDTO> GetCartById(Guid _cartId)
         {
-            Cart cartData = await _unitOfWork.cartsRepo.GetById(_cartId);
-            CartDTO cart = new CartDTO();
-            cart.CartId = cartData.CartId;
-            cart.CarId = cartData.CarId;
-            cart.Amount = cartData.Amount;
-            cart.Price = cartData.Price;
-            return cart;
+			try
+			{
+				Cart cartData = await _unitOfWork.cartsRepo.GetById(_cartId);
+				CartDTO cart = new CartDTO();
+				cart.CartId = cartData.CartId;
+				cart.CarId = cartData.CarId;
+				cart.Amount = cartData.Amount;
+				cart.Price = cartData.Price;
+				return cart;
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+				return null;
+			}
         }
 
         public async Task<CustomerCartDTO> GetCustomerCart(Guid customerId)
@@ -130,12 +147,6 @@ namespace CTQM_CAR.Service.Service.Implement
 			try
 			{
 				Cart cartData = await _unitOfWork.cartsRepo.GetById(cartId);
-				if (amount < 0)
-				{
-					// Delete
-					await DeleteCart(cartId);
-					return null;
-				}
 				cartData.Amount = amount;
 				CartDTO cartResult = new CartDTO
 				{
@@ -150,6 +161,19 @@ namespace CTQM_CAR.Service.Service.Implement
 				return cartResult;
 			}
 			catch(Exception ex)
+			{
+				Console.WriteLine(ex);
+				return null;
+			}
+		}
+
+		public async Task<string> CheckCustomerCart(Guid customerId, Guid carId)
+		{
+			try
+			{
+				return await _unitOfWork.cartsRepo.GetCustomerCartWithCar(customerId, carId);
+			}
+			catch (Exception ex)
 			{
 				Console.WriteLine(ex);
 				return null;

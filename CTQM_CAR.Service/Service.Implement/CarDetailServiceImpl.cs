@@ -16,7 +16,26 @@ namespace CTQM_CAR.Service.Service.Implement
 			_unitOfWork = unitOfWork;
 		}
 
-        public async Task AddCarDetail(CarDetailDTO carDetailDTO)
+        public async Task<List<CarDetailDTO>> GetAllCarDetail()
+        {
+			List<CarDetailDTO> carDetailsList = new List<CarDetailDTO>();
+			foreach (var carDetail in await _unitOfWork.carDetailsRepo.GetAll())
+			{
+				CarDetailDTO carDetailDTO = new CarDetailDTO();
+				carDetailDTO.DetailId = carDetail.DetailId;
+				carDetailDTO.CarId = carDetail.CarId;
+				carDetailDTO.Head1 = carDetail.Head1;
+				carDetailDTO.Title1 = carDetail.Title1;
+				carDetailDTO.Head2 = carDetail.Head2;
+				carDetailDTO.Title2 = carDetail.Title2;
+				carDetailDTO.Head3 = carDetail.Head3;
+				carDetailDTO.Title3 = carDetail.Title3;
+                carDetailsList.Add(carDetailDTO);
+			}
+			return carDetailsList;
+        }
+
+		public async Task AddCarDetail(AddCarDetailDTO carDetailDTO)
         {
             Guid id = Guid.NewGuid();
             var carDetailData = new CarDetail
@@ -40,43 +59,69 @@ namespace CTQM_CAR.Service.Service.Implement
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task<bool> FindCarDetailById(Guid id)
-        {
-            var result = await _unitOfWork.carDetailsRepo.GetById(id);
-            if (result != null)
-                return true;
-            return false;
-        }
+		public async Task<bool> FindCarDetailByCarId(Guid id)
+		{
+			var result = await _unitOfWork.carDetailsRepo.GetCarDetailWithCar(id);
+			if (result != null)
+				return true;
+			return false;
+		}
 
-        public async Task<CarDetailDTO> GetCarDetailById(Guid id)
-        {
-            var carDetail = await _unitOfWork.carDetailsRepo.GetById(id);
-            if (carDetail != null)
-            {
-                CarDetailDTO carDetailDTO = new CarDetailDTO();
-                carDetailDTO.DetailId = carDetail.DetailId;
-                carDetailDTO.CarId = carDetail.CarId;
-                carDetailDTO.Head1 = carDetail.Head1;
-                carDetailDTO.Title1 = carDetail.Title1;
-                carDetailDTO.Head2 = carDetail.Head2;
-                carDetailDTO.Title2 = carDetail.Title2;
-                carDetailDTO.Head3 = carDetail.Head3;
-                carDetailDTO.Title3 = carDetail.Title3;
+		public async Task<CarDetailDTO> GetCarDetailByCarId(Guid id)
+		{
+			var carDetail = await _unitOfWork.carDetailsRepo.GetCarDetailWithCar(id);
+			if (carDetail != null)
+			{
+				CarDetailDTO carDetailDTO = new CarDetailDTO();
+				carDetailDTO.DetailId = carDetail.DetailId;
+				carDetailDTO.CarId = carDetail.CarId;
+				carDetailDTO.Head1 = carDetail.Head1;
+				carDetailDTO.Title1 = carDetail.Title1;
+				carDetailDTO.Head2 = carDetail.Head2;
+				carDetailDTO.Title2 = carDetail.Title2;
+				carDetailDTO.Head3 = carDetail.Head3;
+				carDetailDTO.Title3 = carDetail.Title3;
 
-                return carDetailDTO;
-            }
-            return null;
-        }
+				return carDetailDTO;
+			}
+			return null;
+		}
 
-        public async Task UpdateCarDetail(CarDetailDTO carDetailDTO)
+		public async Task<bool> FindCarDetailById(Guid id)
+		{
+			var result = await _unitOfWork.carDetailsRepo.GetById(id);
+			if (result != null)
+				return true;
+			return false;
+		}
+
+		public async Task<CarDetailDTO> GetCarDetailById(Guid id)
+		{
+			var carDetail = await _unitOfWork.carDetailsRepo.GetById(id);
+			if (carDetail != null)
+			{
+				CarDetailDTO carDetailDTO = new CarDetailDTO();
+				carDetailDTO.DetailId = carDetail.DetailId;
+				carDetailDTO.CarId = carDetail.CarId;
+				carDetailDTO.Head1 = carDetail.Head1;
+				carDetailDTO.Title1 = carDetail.Title1;
+				carDetailDTO.Head2 = carDetail.Head2;
+				carDetailDTO.Title2 = carDetail.Title2;
+				carDetailDTO.Head3 = carDetail.Head3;
+				carDetailDTO.Title3 = carDetail.Title3;
+
+				return carDetailDTO;
+			}
+			return null;
+		}
+
+		public async Task UpdateCarDetail(Guid carDetailId, UpdateCarDetailDTO carDetailDTO)
         {
             
-                CarDetail carDetailContent = await _unitOfWork.carDetailsRepo.GetById(carDetailDTO.DetailId);
+                CarDetail carDetailContent = await _unitOfWork.carDetailsRepo.GetById(carDetailId);
 
                 if (carDetailContent != null)
                 {
-                    if (carDetailDTO.CarId == null || carDetailDTO.CarId == Guid.Empty)
-                        carDetailContent.CarId = carDetailDTO.CarId;
                     if (!string.IsNullOrEmpty(carDetailDTO.Head1))
                         carDetailContent.Head1 = carDetailDTO.Head1;
                     if (!string.IsNullOrEmpty(carDetailDTO.Head1))

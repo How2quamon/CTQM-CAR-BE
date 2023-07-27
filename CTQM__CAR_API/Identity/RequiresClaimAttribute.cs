@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Ram_New_API.Identity
+namespace CTQM_CAR_API.Identity
 {
 	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 	public class RequiresClaimAttribute : Attribute, IAuthorizationFilter

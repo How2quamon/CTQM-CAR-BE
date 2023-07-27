@@ -1,4 +1,4 @@
-﻿namespace Ram_New_API.Identity
+﻿namespace CTQM_CAR_API.Identity
 {
 	public class IdentityData
 	{
