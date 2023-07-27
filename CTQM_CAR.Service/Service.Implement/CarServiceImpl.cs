@@ -67,10 +67,10 @@ namespace CTQM_CAR.Service.Service.Implement
             return null;
         }
 
-        public async Task AddCar(CarDTO car)
+        public async Task AddCar(AddCarDTO car)
         {
             Guid id = Guid.NewGuid();
-            var carData = new Car
+            Car carData = new Car
             {
                 CarId = id,
                 CarName = car.CarName,
@@ -93,9 +93,9 @@ namespace CTQM_CAR.Service.Service.Implement
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task UpdateCar(CarDTO carDTO)
+        public async Task UpdateCar(Guid carId, AddCarDTO carDTO)
         {
-            Car carContent = await _unitOfWork.carsRepo.GetById(carDTO.CarId);
+            Car carContent = await _unitOfWork.carsRepo.GetById(carId);
 
             if (carContent != null)
             {
@@ -117,7 +117,6 @@ namespace CTQM_CAR.Service.Service.Implement
                     carContent.MoTa = carDTO.MoTa;
                 if (!string.IsNullOrEmpty(carDTO.MoTa2))
                     carContent.MoTa2 = carDTO.MoTa2;
-
 
                 _unitOfWork.carsRepo.Update(carContent);
                 await _unitOfWork.SaveAsync();

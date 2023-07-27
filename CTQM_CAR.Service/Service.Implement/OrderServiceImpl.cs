@@ -1,6 +1,7 @@
 ﻿using CTQM_CAR.Domain;
 using CTQM_CAR.Repositories.IRepository;
 using CTQM_CAR.Service.Service.Interface;
+using CTQM_CAR.Shared.DTO.CarDetailDTO;
 using CTQM_CAR.Shared.DTO.OrderDTO;
 
 namespace CTQM_CAR.Service.Service.Implement
@@ -13,7 +14,26 @@ namespace CTQM_CAR.Service.Service.Implement
             _unitOfWork = unitOfWork;
         }
 
-        public async Task AddOrder(OrderDTO _orderDTO)
+
+		public async Task<List<OrderDTO>> GetAllOrder()
+        {
+			List<OrderDTO> orderList = new List<OrderDTO>();
+			foreach (var order in await _unitOfWork.ordersRepo.GetAll())
+			{
+				OrderDTO orderDTO = new OrderDTO();
+                orderDTO.OrderId = order.OrderId;
+			    orderDTO.CarId = order.CarId;
+			    orderDTO.OrderDate = order.OrderDate;
+			    orderDTO.OrderStatus = order.OrderStatus;
+			    orderDTO.Amount = order.Amount;
+			    orderDTO.TotalPrice = order.TotalPrice;
+			    orderDTO.CustomerId = order.CustomerId;
+                orderList.Add(orderDTO);
+			}
+			return orderList;
+		}
+
+		public async Task AddOrder(AddOrderDTO _orderDTO)
         {
             Guid id = Guid.NewGuid();
             var orderData = new Order
@@ -64,14 +84,12 @@ namespace CTQM_CAR.Service.Service.Implement
             return null;
         }
 
-        public async Task UpdateOrder(OrderDTO _orderDTO)
+        public async Task UpdateOrder(Guid orderId, UpdateOrderDTO _orderDTO)
         {
-            Order orderContent = await _unitOfWork.ordersRepo.GetById(_orderDTO.OrderId);
+            Order orderContent = await _unitOfWork.ordersRepo.GetById(orderId);
 
             if (orderContent != null)
             {
-                if (_orderDTO.CarId != null || _orderDTO.CarId != Guid.Empty)
-                    orderContent.CarId = _orderDTO.CarId;
                 if (_orderDTO.OrderDate != null)
                     orderContent.OrderDate = _orderDTO.OrderDate;
                 if (!string.IsNullOrEmpty(_orderDTO.OrderStatus))
@@ -80,18 +98,15 @@ namespace CTQM_CAR.Service.Service.Implement
                     orderContent.Amount = _orderDTO.Amount;
                 if (_orderDTO.TotalPrice != null)
                     orderContent.TotalPrice = _orderDTO.TotalPrice;
-                if (_orderDTO.CustomerId != null || _orderDTO.CustomerId != Guid.Empty)
-                    orderContent.CustomerId = _orderDTO.CustomerId;
-
 
                 _unitOfWork.ordersRepo.Update(orderContent);
                 await _unitOfWork.SaveAsync();
             }
         }
 
-        public async Task UpdateStatus(OrderDTO _orderDTO, bool _status)
+        public async Task UpdateStatus(Guid orderId, bool _status)
         {
-            Order orderContent = await _unitOfWork.ordersRepo.GetById(_orderDTO.OrderId);
+            Order orderContent = await _unitOfWork.ordersRepo.GetById(orderId);
 
             if (orderContent != null)
             {

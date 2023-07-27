@@ -9,7 +9,11 @@ namespace CTQM_CAR_HEADER.Repository
 {
 	public class AuthenticateRepo : IAuthenticateRepo
 	{
-		private readonly IConfiguration? _configuration;
+		private readonly IConfiguration _configuration;
+		public AuthenticateRepo(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
 
 		public string Authenticate(CustomerTokenDTO Customer)
 		{
@@ -29,7 +33,7 @@ namespace CTQM_CAR_HEADER.Repository
 			var tokenDescriptior = new SecurityTokenDescriptor
 			{
 				Subject = new ClaimsIdentity(claims),
-				//Expires = DateTime.UtcNow.AddMinutes(20),
+				Expires = DateTime.UtcNow.AddMinutes(20),
 				Issuer = _configuration["JwtSettings:Issuer"],
 				Audience = _configuration["JwtSettings:Audience"],
 				SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256)

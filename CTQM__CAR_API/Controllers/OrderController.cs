@@ -19,9 +19,16 @@ namespace CTQM__CAR_API.Controllers
             _orderService = orderService;
         }
 
-        //Add new order
-        [HttpPost("NewOrder")]
-        public async Task<ActionResult> AddOrder([FromBody] OrderDTO _order)
+
+		[HttpGet]
+		public async Task<ActionResult<List<CarDTO>>> GetAll()
+		{
+			return Ok(await _orderService.GetAllOrder());
+		}
+
+		//Add new order
+		[HttpPost("NewOrder")]
+        public async Task<ActionResult> AddOrder([FromBody] AddOrderDTO order)
         {
             try
             {
@@ -33,7 +40,6 @@ namespace CTQM__CAR_API.Controllers
 
 
                 // Add New Order
-                OrderDTO order = new OrderDTO();
                 await _orderService.AddOrder(order);
                 return Ok(new
                 {
@@ -68,7 +74,7 @@ namespace CTQM__CAR_API.Controllers
 
         //Update order by id
         [HttpPut("UpdateOrder/{id}")]
-        public async Task<ActionResult<OrderDTO>> UpdateOrder([FromRoute] Guid id, [FromBody] OrderDTO _orderDTO)
+        public async Task<ActionResult<OrderDTO>> UpdateOrder([FromRoute] Guid id, [FromBody] UpdateOrderDTO orderDTO)
         {
             try
             {
@@ -84,7 +90,7 @@ namespace CTQM__CAR_API.Controllers
                 {
                     
                     //Update Order
-                    await _orderService.UpdateOrder(_orderDTO);
+                    await _orderService.UpdateOrder(id, orderDTO);
                     return Ok(new
                     {
                         message = "Update Order Success."
@@ -143,8 +149,7 @@ namespace CTQM__CAR_API.Controllers
                 bool isExist = await _orderService.FindOrderById(id);
                 if (isExist)
                 {
-                    OrderDTO _orderDTO = await _orderService.GetOrderById(id);
-                    await _orderService.UpdateStatus(_orderDTO, orderStatus);
+                    await _orderService.UpdateStatus(id, orderStatus);
                     return Ok(new
                     {
                         message = "Update Car Success."

@@ -44,5 +44,15 @@ namespace CTQM_CAR.Repositories.Repository
 				return false;
 			}
 		}
+
+		public async Task<string> GetCustomerCartWithCar(Guid customerId, Guid carId)
+		{
+			var result = await MecDBContext.Carts
+						.Where(c => c.CustomerId == customerId)
+						.Where(c => c.CarId == carId)
+						.FirstOrDefaultAsync();
+			if (result != null) return result.CartId.ToString();
+			return null;
+		}
 	}
 }

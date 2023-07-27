@@ -10,6 +10,6 @@ namespace CTQM_CAR.Repositories.IRepository
 {
     public interface ICarDetailRepository : IRepository<CarDetail>
     {
-
+        Task<CarDetail> GetCarDetailWithCar(Guid carId);
     }
 }

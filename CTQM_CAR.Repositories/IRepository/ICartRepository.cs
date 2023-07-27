@@ -11,5 +11,6 @@ namespace CTQM_CAR.Repositories.IRepository
 	{
 		Task<List<Cart>> GetCustomerCart(Guid customerId);
 		Task<bool> DeleteCustomerCart(Guid customerId);
+		Task<string> GetCustomerCartWithCar(Guid customerId, Guid carId);
     }
 }

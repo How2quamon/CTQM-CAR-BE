@@ -49,38 +49,13 @@ namespace CTQM__CAR_API.Controllers
 
         //Create new car
         [HttpPost("NewCar")]
-        public async Task<ActionResult> AddCar([FromBody] CarDTO _car)
+        public async Task<ActionResult> AddCar([FromBody] AddCarDTO car)
         {
             try
             {
                 // Check the validation
-                //var validator = new NewDetailValidator();
-                //ValidationResult validaResult = await validator.ValidateAsync(newCarDetail);
-                //if (!validaResult.IsValid)
-                //return BadRequest(validaResult.Errors);
-
-                // Create New Comment
-
-                //Random rnd = new Random();
-
-
-                /*Guid id = Guid.NewGuid();
-                var car = new CarDTO
-                {
-                    CarId = id,
-                    CarName = _car.CarName,
-                    CarModel= _car.CarModel,
-                    CarClass = _car.CarClass,
-                    CarEngine = _car.CarEngine,
-                    CarAmount = _car.CarAmount,
-                    CarPrice = _car.CarPrice,
-                    MoTa= _car.MoTa,
-                    Head1 = _car.Head1,
-                    MoTa2 = _car.MoTa2,
-                };*/
 
                 // Add New Car
-                CarDTO car = new CarDTO();
                 await _carService.AddCar(car);
                 return Ok(new
                 {
@@ -122,38 +97,19 @@ namespace CTQM__CAR_API.Controllers
 
         //Update Car
         [HttpPut("UpdateCar/{id}")]
-        public async Task<ActionResult<CarDetailDTO>> UpdateCar([FromRoute] Guid id, [FromBody] CarDTO car)
+        public async Task<ActionResult<CarDetailDTO>> UpdateCar([FromRoute] Guid id, [FromBody] AddCarDTO carData)
         {
             try
             {
                 // Check validation
-                //var validator = new UpdateCommentValidator();
-                //ValidationResult validaResult = await validator.ValidateAsync(updateComment);
-                //if (!validaResult.IsValid)
-                //return BadRequest(validaResult.Errors);
 
                 // Check Exist
                 bool isExist = await _carService.FindCarById(id);
                 if (isExist)
                 {
-                    //Create New CarDTO
-                    /*var carData = new CarDTO
-                    {
-                        CarId = id,
-                        CarName = car.CarName,
-                        CarModel = car.CarModel,
-                        CarClass = car.CarClass,
-                        CarEngine = car.CarEngine,
-                        CarAmount = car.CarAmount,
-                        CarPrice = car.CarPrice,
-                        MoTa = car.MoTa,
-                        Head1 = car.Head1,
-                        MoTa2 = car.MoTa2,
-                    };*/
 
                     //Update Car
-                    CarDTO carData = new CarDTO();
-                    await _carService.UpdateCar(carData);
+                    await _carService.UpdateCar(id, carData);
                     return Ok(new
                     {
                         message = "Update Car Success."
