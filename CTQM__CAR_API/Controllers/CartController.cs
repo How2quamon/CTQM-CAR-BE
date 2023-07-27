@@ -25,8 +25,15 @@ namespace CTQM__CAR_API.Controllers
 			return await _cartService.GetAllCart();
 		}
 
-		// Get Customer Cart
-		[HttpGet("GetCustomerCart/{id}")]
+        // Get Cart By Id
+        [HttpGet("GetCart/{_cartId}")]
+        public async Task<CartDTO> GetCartById([FromRoute] Guid _cartId)
+        {
+            return await _cartService.GetCartById(_cartId);
+        }
+
+        // Get Customer Cart
+        [HttpGet("GetCustomerCart/{id}")]
 		public async Task<ActionResult<CustomerCartDTO>> GetCustomerCart([FromRoute] Guid customerId)
 		{
 			var data = await _cartService.GetCustomerCart(customerId);

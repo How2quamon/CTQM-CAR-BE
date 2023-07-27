@@ -14,6 +14,7 @@ namespace CTQM_CAR_HEADER.Controllers
 	{
 		private readonly IConfiguration? _configuration;
 
+		[HttpPost]
 		public string Authenticate(CustomerTokenDTO Customer)
 		{
 			var tokenHandler = new JwtSecurityTokenHandler();
