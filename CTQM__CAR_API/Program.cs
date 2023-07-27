@@ -82,12 +82,21 @@ builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IPaypalService, PaypalServiceImpl>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddTransient<IAuthenticateRepo, AuthenticateRepo>();
+builder.Services.AddDistributedMemoryCache();
+
 builder.Services.AddTransient<ITokenService, TokenServiceImpl>();
 builder.Services.AddStackExchangeRedisCache(options =>
 {
 	//options.Configuration = config.GetConnectionString("AzureRedisCache");
 	options.Configuration = "localhost:6379, ssl=False";
 	options.InstanceName = "Ram Redis Cache";
+});
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
 });
 
 var app = builder.Build();
@@ -103,9 +112,12 @@ if (app.Environment.IsDevelopment())
 app.UseCors();
 app.UseHttpsRedirection();
 
+app.UseSession();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
+
