@@ -2,6 +2,7 @@
 using CTQM_CAR.Repositories.IRepository;
 using CTQM_CAR.Service.Service.Interface;
 using CTQM_CAR.Shared.DTO.CustomerDTO;
+using Microsoft.EntityFrameworkCore;
 
 namespace CTQM_CAR.Service.Service.Implement
 {
@@ -12,7 +13,6 @@ namespace CTQM_CAR.Service.Service.Implement
 		{
 			_unitOfWork = unitOfWork;
 		}
-
 
 		private async Task<Customer> GetCustomerById(Guid customerId)
 		{
@@ -53,6 +53,31 @@ namespace CTQM_CAR.Service.Service.Implement
 				result.Add(customerTmp);
 			}
 			return result;
+		}
+
+		public async Task<CustomerTokenDTO?> GetCustomerByEmail(string email)
+		{
+			try
+			{
+				Customer customer = await _unitOfWork.customersRepo.GetCustomerWithEmail(email);
+				if (customer != null)
+				{
+					CustomerTokenDTO userData = new CustomerTokenDTO
+					{
+						Id = customer.CustomerId,
+						Email = customer.CustomerEmail,
+						Password = customer.CustomerPassword,
+						Name = customer.CustomerName
+					};
+					return userData;
+				}
+				return null;
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+				return null;
+			}
 		}
 
 		public async Task<bool> CreateNewCustomer(CustomerCreateDTO customerData)

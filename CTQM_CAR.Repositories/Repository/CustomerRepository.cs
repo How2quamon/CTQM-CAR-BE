@@ -19,5 +19,12 @@ namespace CTQM_CAR.Repositories.Repository
 		{
 			get { return _context as MEC_DBContext; }
 		}
+
+		public async Task<Customer> GetCustomerWithEmail(string email)
+		{
+			return await MecDBContext.Customers
+				.Where(c => c.CustomerEmail == email)
+				.FirstAsync();
+		}
 	}
 }

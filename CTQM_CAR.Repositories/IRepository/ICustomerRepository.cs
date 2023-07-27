@@ -9,6 +9,7 @@ namespace CTQM_CAR.Repositories.IRepository
 {
     public interface ICustomerRepository : IRepository<Customer>
     {
+        Task<Customer> GetCustomerWithEmail(string email);
 
-    }
+	}
 }
