@@ -9,12 +9,12 @@ namespace CTQM_CAR.Service.Service.Interface
 {
 	public interface ITokenService
 	{
-		Task<bool> SetCustomerLoginIfo(string customerId, string token);
-		Task<bool> CheckTokenExist(string customerId);
-		Task<bool> CheckTokenExpire(string customerId);
-		Task<string> GetCustomerToken(string customerId);
-		Task<CustomerTokenDTO> GetCustomerLoginIfo(string customerId);
-		Task<bool> RemoveCustomerToken(string customerId);
+		Task<bool> SetCustomerLoginIfo(Guid customerId, string token);
+		Task<bool> CheckTokenExist(Guid customerId);
+		Task<bool> CheckTokenExpire(Guid customerId);
+		Task<string> GetCustomerToken(Guid customerId);
+		Task<CustomerTokenDTO> GetCustomerLoginIfo(Guid customerId);
+		Task<bool> RemoveCustomerToken(Guid customerId);
 		Task<bool> SetCustomerOldTokenBlackList(string token);
 		Task<bool> CheckOldTokenBlackList(string token);
 		Task<bool> CheckCustomerTokenAuthen(string token);

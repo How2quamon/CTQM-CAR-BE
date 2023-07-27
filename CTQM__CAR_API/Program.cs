@@ -3,6 +3,8 @@ using CTQM_CAR.Repositories.IRepository;
 using CTQM_CAR.Repositories.Repository;
 using CTQM_CAR.Service.Service.Implement;
 using CTQM_CAR.Service.Service.Interface;
+using CTQM_CAR_HEADER.IRepository;
+using CTQM_CAR_HEADER.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -44,6 +46,7 @@ builder.Services.AddTransient<IOrderService, OrderServiceImpl>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IPaypalService, PaypalServiceImpl>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddTransient<IAuthenticateRepo, AuthenticateRepo>();
 
 var app = builder.Build();
 

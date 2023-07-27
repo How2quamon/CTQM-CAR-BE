@@ -8,19 +8,24 @@
     "net7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\ACER Aspire 7\\.nuget\\packages\\": {}
+    "C:\\Users\\thejo\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Study\\MEC_BE\\merc_new\\CTQM_CAR.Domain\\CTQM_CAR.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\thejo\\source\\NET\\CTQM-CAR-BE\\CTQM_CAR.Domain\\CTQM_CAR.Domain.csproj",
       "projectName": "CTQM_CAR.Domain",
-      "projectPath": "D:\\Study\\MEC_BE\\merc_new\\CTQM_CAR.Domain\\CTQM_CAR.Domain.csproj",
-      "packagesPath": "C:\\Users\\ACER Aspire 7\\.nuget\\packages\\",
-      "outputPath": "D:\\Study\\MEC_BE\\merc_new\\CTQM_CAR.Domain\\obj\\",
+      "projectPath": "C:\\Users\\thejo\\source\\NET\\CTQM-CAR-BE\\CTQM_CAR.Domain\\CTQM_CAR.Domain.csproj",
+      "packagesPath": "C:\\Users\\thejo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\thejo\\source\\NET\\CTQM-CAR-BE\\CTQM_CAR.Domain\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\ACER Aspire 7\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\thejo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -28,6 +33,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -61,7 +67,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

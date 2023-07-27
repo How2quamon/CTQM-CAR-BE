@@ -1,3 +1,5 @@
+using CTQM_CAR_HEADER.IRepository;
+using CTQM_CAR_HEADER.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -33,6 +35,7 @@ builder.Services.AddAuthentication(x =>
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddTransient<IAuthenticateRepo, AuthenticateRepo>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
