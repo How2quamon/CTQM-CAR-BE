@@ -16,6 +16,9 @@ namespace CTQM__CAR_API.Controllers
         private readonly IPaypalService _paypalService;
         private readonly ICartService _cartService;
         private readonly ICarService _carService;
+        private readonly ILogger<PaypalController> _logger;
+        private IHttpContextAccessor _httpContextAccessor;
+        IConfiguration _configuration;
 
         public PaypalController(IPaypalService paypalService, ILogger<PaypalController> logger, IHttpContextAccessor context, IConfiguration iconfiguration, ICartService cartService, ICarService carService)
         {
@@ -26,9 +29,7 @@ namespace CTQM__CAR_API.Controllers
             _cartService = cartService;
             _carService = carService;
         }
-        private readonly ILogger<PaypalController> _logger;
-        private IHttpContextAccessor _httpContextAccessor;
-        IConfiguration _configuration;
+        
 
         [HttpGet("CreatedPayment/{guid}")]
         //public ActionResult PaymentWithPaypal(string Cancel = null, string blogId = "", string PayerID = "", string guid = "")
@@ -67,7 +68,7 @@ namespace CTQM__CAR_API.Controllers
                     
                     //CreatePayment function gives us the payment approval url  
                     //on which payer is redirected for paypal account payment  
-                    var createdPayment = await this.CreatePayment(apiContext, baseURI + "guid=" + guidd, guidd/*, blogId*/);
+                    var createdPayment = await this.CreatePayment(apiContext, baseURI /*+ "guid="*/ + guidd, guidd, blogId);
                     
                     //get links returned from paypal in response to Create function call  
                     var links =  createdPayment.links.GetEnumerator();
@@ -122,7 +123,7 @@ namespace CTQM__CAR_API.Controllers
             catch (Exception ex)
             {
                 //return BadRequest(ex.Message);
-                return ("fail");
+                return ("fail" + ex);
                 //return View("PaymentFailed");
             }
             //on successful payment, show success page to user.  
@@ -142,7 +143,7 @@ namespace CTQM__CAR_API.Controllers
             };
             return this.payment.Execute(apiContext, paymentExecution);
         }
-        private async Task<Payment> CreatePayment(APIContext apiContext, string redirectUrl, Guid guidd/*, string blogId*/)
+        private async Task<Payment> CreatePayment(APIContext apiContext, string redirectUrl, Guid guidd, string blogId)
         {
             //create itemlist and add item objects to it  
             //var data = _cartService.GetCustomerCart(guidd);
