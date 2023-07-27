@@ -20,26 +20,15 @@ namespace CTQM__CAR_API.Controllers
         public PaypalController(IPaypalService paypalService, ILogger<PaypalController> logger, IHttpContextAccessor context, IConfiguration iconfiguration, ICartService cartService, ICarService carService)
         {
             _logger = logger;
-            httpContextAccessor = context;
+            _httpContextAccessor = context;
             _configuration = iconfiguration;
             _paypalService = paypalService;
             _cartService = cartService;
             _carService = carService;
         }
         private readonly ILogger<PaypalController> _logger;
-        private IHttpContextAccessor httpContextAccessor;
+        private IHttpContextAccessor _httpContextAccessor;
         IConfiguration _configuration;
-        /*public PaypalController(ILogger<PaypalController> logger, IHttpContextAccessor context, IConfiguration iconfiguration)
-        {
-            _logger = logger;
-            httpContextAccessor = context;
-            _configuration = iconfiguration;
-        }*/
-
-        /*public IActionResult Index()
-        {
-            return View();
-        }*/
 
         [HttpGet("CreatedPayment/{guid}")]
         //public ActionResult PaymentWithPaypal(string Cancel = null, string blogId = "", string PayerID = "", string guid = "")
@@ -52,36 +41,8 @@ namespace CTQM__CAR_API.Controllers
             var mode = _configuration.GetValue<string>("PayPal:mode");
 
 
-            /*//PaypalConfiguration
-            Dictionary<string, string> GetConfig(string _mode)
-            {
-                return new Dictionary<string, string>()
-            {
-                {"mode",_mode}
-            };
-            }
-            string GetAccessToken(string _ClientId, string _ClientSecret, string _mode)
-            {
-                // getting accesstocken from paypal
-                string accessToken = new OAuthTokenCredential(_ClientId, _ClientSecret, new Dictionary<string, string>()
-            {
-                {"mode",_mode}
-            }).GetAccessToken();
-                return accessToken;
-            }
-            APIContext GetAPIContext(string _clientId, string _clientSecret, string _mode)
-            {
-                // return apicontext object by invoking it with the accesstoken  
-                APIContext apiContext = new APIContext(GetAccessToken(_clientId, _clientSecret, _mode));
-                apiContext.Config = GetConfig(_mode);
-                return apiContext;
-            }
-*/
-
-
-
+          
             APIContext apiContext = _paypalService.GetAPIContext(ClientID, ClientSecret, mode);
-            String tmplink="vailon";
 
             // apiContext.AccessToken="Bearer access_token$production$j27yms5fthzx9vzm$c123e8e154c510d70ad20e396dd28287";
             try
@@ -115,17 +76,15 @@ namespace CTQM__CAR_API.Controllers
                     while (links.MoveNext())
                     {
                         Links lnk = links.Current;
-                        tmplink = lnk.ToString();
                         if (lnk.rel.ToLower().Trim().Equals("approval_url"))
                         {
                             //saving the payapalredirect URL to which user will be redirected for payment  
                             paypalRedirectUrl = lnk.href;
-                            tmplink = paypalRedirectUrl;
                         }
                     }
-                    return paypalRedirectUrl;
+                    //return paypalRedirectUrl;
                     // saving the paymentID in the key guid  
-                    httpContextAccessor.HttpContext.Session.SetString("payment", createdPayment.id);
+                    _httpContextAccessor.HttpContext.Session.SetString("payment", createdPayment.id);
                     //return Redirect(paypalRedirectUrl);
                     return paypalRedirectUrl;
 
@@ -137,7 +96,7 @@ namespace CTQM__CAR_API.Controllers
                 {
                     // This function exectues after receving all parameters for the payment  
 
-                    var paymentId = httpContextAccessor.HttpContext.Session.GetString("payment");
+                    var paymentId = _httpContextAccessor.HttpContext.Session.GetString("payment");
                     var executedPayment = ExecutePayment(apiContext, payerId, paymentId as string);
                     //If executed payment failed then we will show payment failure message to user  
                     if (executedPayment.state.ToLower() != "approved")
