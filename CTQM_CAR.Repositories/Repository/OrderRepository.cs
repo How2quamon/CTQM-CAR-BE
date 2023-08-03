@@ -18,5 +18,12 @@ namespace CTQM_CAR.Repositories.Repository
 		{
 			get { return _context as MEC_DBContext; }
 		}
-	}
+
+        public async Task<List<Order>> GetByCustomerId(Guid id)
+        {
+			return await MecDBContext.Orders
+				.Where(x => x.CustomerId == id)
+				.ToListAsync();
+        }
+    }
 }
