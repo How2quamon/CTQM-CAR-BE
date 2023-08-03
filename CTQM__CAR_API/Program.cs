@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
 
@@ -108,9 +109,12 @@ app.UseMiddleware<TokenValidatorMiddleware>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwagger();
-	app.UseSwaggerUI();
+	app.UseDeveloperExceptionPage();
 }
+	app.UseSwagger();
+	app.UseSwaggerUI(c => {
+		c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+    });
 
 app.UseCors();
 app.UseHttpsRedirection();
