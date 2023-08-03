@@ -9,6 +9,7 @@ using CTQM_CAR_API.Validators;
 using CTQM_CAR_HEADER.IRepository;
 using CTQM_CAR_HEADER.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
@@ -80,9 +81,11 @@ builder.Services.AddTransient<ICustomerService, CustomerServiceImpl>();
 builder.Services.AddTransient<IOrderService, OrderServiceImpl>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IPaypalService, PaypalServiceImpl>();
+builder.Services.AddTransient<IVNPayService, VNPayServiceImpl>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddTransient<IAuthenticateRepo, AuthenticateRepo>();
 builder.Services.AddDistributedMemoryCache();
+
 
 builder.Services.AddTransient<ITokenService, TokenServiceImpl>();
 builder.Services.AddStackExchangeRedisCache(options =>
