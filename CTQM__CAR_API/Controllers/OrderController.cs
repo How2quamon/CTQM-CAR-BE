@@ -21,7 +21,7 @@ namespace CTQM__CAR_API.Controllers
 
 
 		[HttpGet]
-		public async Task<ActionResult<List<CarDTO>>> GetAll()
+		public async Task<ActionResult<List<OrderDTO>>> GetAll()
 		{
 			return Ok(await _orderService.GetAllOrder());
 		}
@@ -52,9 +52,38 @@ namespace CTQM__CAR_API.Controllers
             }
         }
 
-        //Select order by id
+        // Customer Payment
+        [HttpPost("CustomerPayment")]
+        public async Task<ActionResult> CustomerPayment([FromBody] CustomerPaymentDTO payment)
+        {
+            try
+            {
+                // Check the validation
+
+                // Add New Order
+                await _orderService.CustomerPayment(payment);
+                return Ok(new
+                {
+                    message = "Customer Payment Success."
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        //Select order by CustomerId
+        [HttpGet("CustomerOrder/{customerId}")]
+        public async Task<ActionResult<List<CustomerOrderDTO>>> GetOrderWithCustomerId([FromRoute] Guid customerId)
+        {
+            // Get Order With CustomerID
+            return Ok(await _orderService.GetOrderByCustomerId(customerId));
+        }
+
+        //Select order by Id
         [HttpGet("{id}")]
-        public async Task<ActionResult<OrderDTO>> Get([FromRoute] Guid id)
+        public async Task<ActionResult<OrderDTO>> GetOrderWithId([FromRoute] Guid id)
         {
             // Check Exist
             bool isExist = await _orderService.FindOrderById(id);

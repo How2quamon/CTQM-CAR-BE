@@ -30,10 +30,10 @@ namespace CTQM_CAR.Repositories.Repository
                 .ToListAsync();
         }
 
-        public async Task<List<Car>> GetByType(string carType)
+        public async Task<List<Car>> GetByModel(string carModel)
         {
             return await MecDBContext.Cars
-                .Where(c => c.CarClass.Contains(carType))
+                .Where(c => c.CarModel.Contains(carModel))
                 //.FirstOrDefaultAsync()
                 .ToListAsync();
         }

@@ -10,6 +10,6 @@ namespace CTQM_CAR.Repositories.IRepository
     public interface ICarRepository : IRepository<Car>
     {
         Task<List<Car>> GetByName(string carName);
-        Task<List<Car>> GetByType(string carType);
+        Task<List<Car>> GetByModel(string carModel);
     }
 }

@@ -2,6 +2,7 @@
 using CTQM_CAR.Repositories.IRepository;
 using CTQM_CAR.Service.Service.Interface;
 using CTQM_CAR.Shared.DTO.CarDetailDTO;
+using CTQM_CAR.Shared.DTO.CartDTO;
 using CTQM_CAR.Shared.DTO.OrderDTO;
 
 namespace CTQM_CAR.Service.Service.Implement
@@ -84,6 +85,29 @@ namespace CTQM_CAR.Service.Service.Implement
             return null;
         }
 
+        public async Task<List<CustomerOrderDTO>> GetOrderByCustomerId(Guid id)
+        {
+            List<CustomerOrderDTO> orderList = new List<CustomerOrderDTO>();
+            foreach (var order in await _unitOfWork.ordersRepo.GetByCustomerId(id))
+            {
+                var carData = await _unitOfWork.carsRepo.GetById(order.CarId);
+                CustomerOrderDTO orderDTO = new CustomerOrderDTO();
+                orderDTO.OrderId = order.OrderId;
+                orderDTO.CarId = order.CarId;
+                orderDTO.OrderDate = order.OrderDate;
+                orderDTO.OrderStatus = order.OrderStatus;
+                orderDTO.Amount = order.Amount;
+                orderDTO.TotalPrice = order.TotalPrice;
+                orderDTO.CustomerId = order.CustomerId;
+                orderDTO.CarName = carData.CarName;
+                orderDTO.CarModel = carData.CarModel;
+                orderDTO.CarEngine = carData.CarEngine;
+                orderDTO.CarClass = carData.CarClass;
+                orderList.Add(orderDTO);
+            }
+            return orderList;
+        }
+
         public async Task UpdateOrder(Guid orderId, UpdateOrderDTO _orderDTO)
         {
             Order orderContent = await _unitOfWork.ordersRepo.GetById(orderId);
@@ -119,6 +143,35 @@ namespace CTQM_CAR.Service.Service.Implement
                 
                 _unitOfWork.ordersRepo.Update(orderContent);
                 await _unitOfWork.SaveAsync();
+            }
+        }
+
+        public async Task<bool> CustomerPayment(CustomerPaymentDTO payment)
+        {
+            try
+            {
+                foreach (var cart in await _unitOfWork.cartsRepo.GetCustomerCart(payment.CustomerId))
+                {
+                    Guid id = Guid.NewGuid();
+                    var orderData = new Order
+                    {
+                        OrderId = id,
+                        CarId = cart.CarId,
+                        OrderDate = DateTime.Now,
+                        OrderStatus = payment.OrderStatus,
+                        Amount = cart.Amount,
+                        TotalPrice = cart.Price * cart.Amount,
+                        CustomerId = payment.CustomerId,
+                    };
+                    await _unitOfWork.ordersRepo.Add(orderData);
+                }
+                await _unitOfWork.SaveAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
             }
         }
     }

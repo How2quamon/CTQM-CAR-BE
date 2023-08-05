@@ -10,6 +10,6 @@ namespace CTQM_CAR.Repositories.IRepository
 {
     public interface IOrderRepository : IRepository<Order>
     {
-
+        Task<List<Order>> GetByCustomerId(Guid id);
     }
 }

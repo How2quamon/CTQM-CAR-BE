@@ -145,11 +145,11 @@ namespace CTQM_CAR.Service.Service.Implement
             return cars;
         }
 
-        public async Task<List<CarDTO>> GetCarByType(string carType)
+        public async Task<List<CarDTO>> GetCarByModel(string carModel)
         {
             //return await _unitOfWork.carsRepo.GetByName(carName);
             List<CarDTO> cars = new List<CarDTO>();
-            foreach (var car in await _unitOfWork.carsRepo.GetByType(carType))
+            foreach (var car in await _unitOfWork.carsRepo.GetByModel(carModel))
             {
                 CarDTO carDTO = new CarDTO();
                 carDTO.CarId = car.CarId;

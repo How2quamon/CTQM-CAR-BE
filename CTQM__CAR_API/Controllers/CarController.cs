@@ -137,10 +137,10 @@ namespace CTQM__CAR_API.Controllers
         }
 
         //Recommended Car By Type
-        [HttpGet("GetCarByType/{carType}")]
-        public async Task<IActionResult> Recommened(string? carType)
+        [HttpGet("GetCarWithModel/{carModel}")]
+        public async Task<ActionResult<List<CarDTO>>> Recommened(string? carModel)
         {
-            var car = await _carService.GetCarByType(carType);
+            var car = await _carService.GetCarByModel(carModel);
 
             if (car == null)
                 return NotFound("Get Car Failed.");
