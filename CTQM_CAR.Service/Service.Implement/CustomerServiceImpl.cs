@@ -14,12 +14,12 @@ namespace CTQM_CAR.Service.Service.Implement
 			_unitOfWork = unitOfWork;
 		}
 
-		private async Task<Customer> GetCustomerById(Guid customerId)
-		{
-			return await _unitOfWork.customersRepo.GetById(customerId);
-		}
+        public async Task<Customer> GetCustomerById(Guid customerId)
+        {
+            return await _unitOfWork.customersRepo.GetById(customerId);
+        }
 
-		public async Task<CustomerDTO> GetProfileById(Guid customerId)
+        public async Task<CustomerDTO> GetProfileById(Guid customerId)
 		{
 			var customerData = await _unitOfWork.customersRepo.GetById(customerId);
 			if (customerData == null) return null;

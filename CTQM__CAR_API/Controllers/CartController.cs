@@ -56,9 +56,23 @@ namespace CTQM__CAR_API.Controllers
 				return BadRequest("Add To Cart Failed.");
 			return Ok(result);
 		}
+        
+		// Quick add to Cart
+        [HttpPost("QuickAddToCart")]
+        public async Task<ActionResult<CartNotiDTO>> QuickAddToCart([FromBody] QuickAddCartDTO quickCart)
+        {
+            // Check Validate
 
-		// Update Cart
-		[HttpPut("UpdateCart/{cartId}")]
+            // Add To Cart
+            var result = await _cartService.QuickAddToCart(quickCart);
+            if (result == null)
+                return BadRequest("Add To Cart Failed.");
+            return Ok(result);
+        }
+
+
+        // Update Cart
+        [HttpPut("UpdateCart/{cartId}")]
 		public async Task<ActionResult<CartDTO>> UpdateCart([FromRoute] Guid cartId, [FromBody] int amount = 1)
 		{
 			// Check Validate

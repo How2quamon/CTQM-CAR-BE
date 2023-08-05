@@ -179,5 +179,48 @@ namespace CTQM_CAR.Service.Service.Implement
 				return null;
 			}
 		}
-	}
+
+        public async Task<CartNotiDTO> QuickAddToCart(QuickAddCartDTO quickCart)
+        {
+            try
+            {
+                // Check Cart exist
+                string check = await CheckCustomerCart(quickCart.CustomerId, quickCart.CarId);
+                var carData = await _unitOfWork.carsRepo.GetById(quickCart.CarId);
+                if (check != null)
+                {
+                    Guid cartId = Guid.Parse(check);
+                    await UpdateCustomerCart(cartId, 1);
+                }
+                else
+                {
+                    Guid newGuid = Guid.NewGuid();
+                    Cart cartAdding = new Cart
+                    {
+                        CartId = newGuid,
+                        CustomerId = quickCart.CustomerId,
+                        CarId = quickCart.CarId,
+                        Amount = 1,
+                        Price = carData.CarPrice
+                    };
+                    await _unitOfWork.cartsRepo.Add(cartAdding);
+                }
+
+                CartNotiDTO cartResult = new CartNotiDTO
+                {
+                    CarName = carData.CarName,
+                    Amount = 1,
+                    Price = (double)carData.CarPrice
+                };
+
+                await _unitOfWork.SaveAsync();
+                return cartResult;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
+        }
+    }
 }

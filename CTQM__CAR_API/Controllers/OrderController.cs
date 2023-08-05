@@ -73,7 +73,7 @@ namespace CTQM__CAR_API.Controllers
             }
         }
 
-        //Select order by CustomerId
+        // Get order with CustomerId
         [HttpGet("CustomerOrder/{customerId}")]
         public async Task<ActionResult<List<CustomerOrderDTO>>> GetOrderWithCustomerId([FromRoute] Guid customerId)
         {
