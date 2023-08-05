@@ -173,7 +173,7 @@ namespace CTQM__CAR_API.Controllers
 		}
 
 		// GetProfile
-		[Authorize]
+		//[Authorize]
 		[HttpGet("CustomerInfo/{customerId}")]
 		public async Task<ActionResult<CustomerDTO>> GetCustomerProfile([FromRoute] Guid customerId)
 		{
