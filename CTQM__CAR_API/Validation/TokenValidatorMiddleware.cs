@@ -7,14 +7,12 @@ namespace CTQM_CAR_API.Validators
 	public class TokenValidatorMiddleware
 	{
 		private readonly RequestDelegate _next;
-		private readonly ITokenService _tokenService;
-		public TokenValidatorMiddleware(RequestDelegate next, ITokenService tokenService)
+		public TokenValidatorMiddleware(RequestDelegate next)
 		{
 			_next = next;
-			_tokenService = tokenService;
 		}
 
-		public async Task InvokeAsync(HttpContext context) 
+		public async Task InvokeAsync(HttpContext context, ITokenService _tokenService) 
 		{
 			// Get User JWT Send To Header Authorization From HTTPContext
 			string authorizationHeader = context.Request.Headers["Authorization"];
@@ -29,17 +27,17 @@ namespace CTQM_CAR_API.Validators
 				// Get JWT From Header Authorization
 				string jwt = authorizationHeader.Substring("Bearer ".Length);
 
-				// Check Token In BlackList
-				bool isInBlackList = await _tokenService.CheckOldTokenBlackList(jwt);
-				// True Meaning Token Is In BlackList, And User Can't Use It
-				if (!isInBlackList)
-				{
+				//// Check Token In BlackList
+				//bool isInBlackList = await _tokenService.CheckOldTokenBlackList(jwt);
+				//// True Meaning Token Is In BlackList, And User Can't Use It
+				//if (!isInBlackList)
+				//{
 					// Check Token Expired || True => Token Expired
-					bool isExpired = await _tokenService.CheckCustomerTokenExpired(jwt);
+					bool isExpired = await _tokenService.CheckCookieTokenExpire(jwt);
 					if (!isExpired)
 					{
 						// Check Token Vaild To Authen | True => Token vaild
-						bool isVaild = await _tokenService.CheckCustomerTokenAuthen(jwt);
+						bool isVaild = await _tokenService.CheckCookieTokenExist(jwt);
 						if (isVaild)
 						{
 							await _next(context);
@@ -47,7 +45,7 @@ namespace CTQM_CAR_API.Validators
 						else
 						{
 							Console.WriteLine("You're Token Is Not Vaild.");
-							context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+							context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
 						}
 					}
 					else
@@ -56,12 +54,12 @@ namespace CTQM_CAR_API.Validators
 						Console.WriteLine("You're Token Had Expired.");
 					}
 				}
-				else
-				{
-					Console.WriteLine("You Are Using A Token In Black List, Mean That Is Can't Be Use Anymore.");
-					context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
-				}
-			}
+				//else
+				//{
+				//	Console.WriteLine("You Are Using A Token In Black List, Mean That Is Can't Be Use Anymore.");
+				//	context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+				//}
+			//}
 			else await _next(context);
 		}
 	}

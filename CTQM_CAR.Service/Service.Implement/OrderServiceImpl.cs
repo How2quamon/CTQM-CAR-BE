@@ -152,6 +152,7 @@ namespace CTQM_CAR.Service.Service.Implement
             {
                 foreach (var cart in await _unitOfWork.cartsRepo.GetCustomerCart(payment.CustomerId))
                 {
+                    Car carContent = await _unitOfWork.carsRepo.GetById(cart.CarId);
                     Guid id = Guid.NewGuid();
                     var orderData = new Order
                     {
@@ -163,6 +164,8 @@ namespace CTQM_CAR.Service.Service.Implement
                         TotalPrice = cart.Price * cart.Amount,
                         CustomerId = payment.CustomerId,
                     };
+                    carContent.CarAmount--;
+                    _unitOfWork.carsRepo.Update(carContent);
                     await _unitOfWork.ordersRepo.Add(orderData);
                 }
                 await _unitOfWork.SaveAsync();
