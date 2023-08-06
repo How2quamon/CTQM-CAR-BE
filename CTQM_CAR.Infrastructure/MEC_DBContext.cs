@@ -98,6 +98,7 @@ public partial class MEC_DBContext : DbContext
             entity.Property(e => e.CustomerPhone)
                 .IsRequired()
                 .HasColumnName("Customer_phone");
+            entity.Property(e => e.CustomerVaild).HasColumnName("Customer_vaild");
         });
 
         modelBuilder.Entity<Order>(entity =>

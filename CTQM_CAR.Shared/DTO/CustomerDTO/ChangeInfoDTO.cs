@@ -19,5 +19,7 @@ namespace CTQM_CAR.Shared.DTO.CustomerDTO
 		public string? CustomerLicense { get; set; }
 
 		public string? CustomerEmail { get; set; }
+
+		public bool? CustomerVaild { get; set; }
 	}
 }
