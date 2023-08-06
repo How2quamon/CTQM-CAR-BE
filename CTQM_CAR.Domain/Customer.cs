@@ -21,6 +21,8 @@ public partial class Customer
 
     public string? CustomerPassword { get; set; }
 
+    public bool? CustomerVaild { get; set; }
+
     public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();

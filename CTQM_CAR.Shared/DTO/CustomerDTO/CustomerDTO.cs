@@ -24,7 +24,9 @@ namespace CTQM_CAR.Shared.DTO.CustomerDTO
 
         public string? CustomerPassword { get; set; }
 
-        public CustomerDTO(Guid id, string name, string phone, string address, DateTime date, string license, string email, string? password = "unknow")
+        public bool? CustomerVaild { get; set; }
+
+        public CustomerDTO(Guid id, string name, string phone, string address, DateTime date, string license, string email, bool vaild, string? password = "unknow")
         {
             CustomerId = id;
             CustomerName = name;
@@ -34,6 +36,7 @@ namespace CTQM_CAR.Shared.DTO.CustomerDTO
             CustomerLicense = license;
             CustomerEmail = email;
             CustomerPassword = password;
+            CustomerVaild = vaild;
         }
     }
 }

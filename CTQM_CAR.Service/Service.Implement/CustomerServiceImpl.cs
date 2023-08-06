@@ -30,7 +30,9 @@ namespace CTQM_CAR.Service.Service.Implement
 				customerData.CustomerAddress,
 				customerData.CustomerDate,
 				customerData.CustomerLicense,
-				customerData.CustomerEmail);
+				customerData.CustomerEmail,
+                (bool)(customerData?.CustomerVaild)
+                );
 			return customerResult;
 		}
 
@@ -49,6 +51,7 @@ namespace CTQM_CAR.Service.Service.Implement
 					customer.CustomerDate,
 					customer.CustomerLicense,
 					customer.CustomerEmail,
+                    (bool)customer.CustomerVaild,
 					customer.CustomerPassword);
 				result.Add(customerTmp);
 			}
@@ -94,7 +97,8 @@ namespace CTQM_CAR.Service.Service.Implement
 					CustomerDate = DateTime.Now,
 					CustomerLicense = "Unknow",
 					CustomerEmail = customerData.CustomerEmail,
-					CustomerPassword = customerData.CustomerPassword
+					CustomerPassword = customerData.CustomerPassword,
+					CustomerVaild = false
 				};
 				await _unitOfWork.customersRepo.Add(newCustomer);
 				await _unitOfWork.SaveAsync();
@@ -124,9 +128,11 @@ namespace CTQM_CAR.Service.Service.Implement
 					updateCustomer.CustomerLicense = customerData.CustomerLicense;
 				if (!string.IsNullOrEmpty(customerData.CustomerEmail))
 					updateCustomer.CustomerEmail = customerData.CustomerEmail;
-				_unitOfWork.customersRepo.Update(updateCustomer);
+                if (customerData.CustomerVaild != null)
+                    updateCustomer.CustomerVaild = customerData.CustomerVaild;
+                _unitOfWork.customersRepo.Update(updateCustomer);
 				await _unitOfWork.SaveAsync();
-				CustomerDTO customerResult = new CustomerDTO(updateCustomer.CustomerId, customerData.CustomerName, customerData.CustomerPhone, customerData.CustomerAddress, customerData.CustomerDate, customerData.CustomerLicense, customerData.CustomerEmail);
+				CustomerDTO customerResult = new CustomerDTO(updateCustomer.CustomerId, customerData.CustomerName, customerData.CustomerPhone, customerData.CustomerAddress, customerData.CustomerDate, customerData.CustomerLicense, customerData.CustomerEmail, (bool)customerData.CustomerVaild);
 				return customerResult;
 			}
 			catch (Exception ex)

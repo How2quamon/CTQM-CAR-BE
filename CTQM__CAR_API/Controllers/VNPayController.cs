@@ -20,25 +20,25 @@ namespace CTQM__CAR_API.Controllers
     {
         private readonly IVNPayService _vnpayService;
         private readonly ICartService _cartService;
-        private readonly ICarService _carService;
+        private readonly ICustomerService _customerService;
         private readonly ILogger<PaypalController> _logger;
         private IHttpContextAccessor _httpContextAccessor;
         //private readonly HttpContext _httpContext;
         IConfiguration _configuration;
 
-        public VNPayController(IVNPayService vnpayService, ILogger<PaypalController> logger, IHttpContextAccessor context, IConfiguration iconfiguration, ICartService cartService, ICarService carService/*, IHttpContext httpContext*/)
+        public VNPayController(IVNPayService vnpayService, ILogger<PaypalController> logger, IHttpContextAccessor context, IConfiguration iconfiguration, ICartService cartService, ICustomerService customerService)
         {
             _logger = logger;
             _httpContextAccessor = context;
             _configuration = iconfiguration;
             _vnpayService = vnpayService;
             _cartService = cartService;
-            _carService = carService;
+            _customerService = customerService;
             //_httpContext = httpContext;
         }
 
-        [HttpGet("CreatedPaymentVNPay/{guid}")]
-        public async Task<string> Payment([FromRoute] Guid guid)
+        [HttpGet("CreatedPaymentVNPay/{customerId}")]
+        public async Task<ActionResult<string>> Payment([FromRoute] Guid customerId)
         {
             var url = _configuration.GetValue<string>("VNPay:Url");
             var returnUrl = _configuration.GetValue<string>("VNPay:ReturnUrl");
@@ -47,11 +47,13 @@ namespace CTQM__CAR_API.Controllers
 
             PayLib pay = new PayLib();
 
-            var data = await _cartService.GetCartById(guid);
+            var cartData = await _cartService.GetCustomerCart(customerId);
+            Guid newGuid = Guid.NewGuid();
+
             pay.AddRequestData("vnp_Version", "2.1.0"); //Phiên bản api mà merchant kết nối. Phiên bản hiện tại là 2.1.0
             pay.AddRequestData("vnp_Command", "pay"); //Mã API sử dụng, mã cho giao dịch thanh toán là 'pay'
             pay.AddRequestData("vnp_TmnCode", tmnCode); //Mã website của merchant trên hệ thống của VNPAY (khi đăng ký tài khoản sẽ có trong mail VNPAY gửi về)
-            pay.AddRequestData("vnp_Amount", (data.Price*100).ToString()); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
+            pay.AddRequestData("vnp_Amount", (cartData.totalDiscount*100).ToString()); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
             pay.AddRequestData("vnp_BankCode", ""); //Mã Ngân hàng thanh toán (tham khảo: https://sandbox.vnpayment.vn/apis/danh-sach-ngan-hang/), có thể để trống, người dùng có thể chọn trên cổng thanh toán VNPAY
             pay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss")); //ngày thanh toán theo định dạng yyyyMMddHHmmss
             pay.AddRequestData("vnp_CurrCode", "VND"); //Đơn vị tiền tệ sử dụng thanh toán. Hiện tại chỉ hỗ trợ VND
@@ -60,11 +62,15 @@ namespace CTQM__CAR_API.Controllers
             pay.AddRequestData("vnp_OrderInfo", "Thanh toan don hang"); //Thông tin mô tả nội dung thanh toán
             pay.AddRequestData("vnp_OrderType", "billpayment"); //topup: Nạp tiền điện thoại - billpayment: Thanh toán hóa đơn - fashion: Thời trang - other: Thanh toán trực tuyến
             pay.AddRequestData("vnp_ReturnUrl", returnUrl); //URL thông báo kết quả giao dịch khi Khách hàng kết thúc thanh toán
-            pay.AddRequestData("vnp_TxnRef", data.CartId.ToString()); //mã hóa đơn
+            pay.AddRequestData("vnp_TxnRef", newGuid.ToString()); //mã hóa đơn
 
             string paymentUrl = pay.CreateRequestUrl(url, hashSecret);
 
-            return paymentUrl;
+            return Ok ( new
+            {
+                message = "redirect",
+                url = paymentUrl
+            });
         }
         
         /*public string PaymentConfirm()
