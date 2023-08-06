@@ -3,6 +3,7 @@ using CTQM_CAR.Repositories.IRepository;
 using CTQM_CAR.Service.Service.Interface;
 using CTQM_CAR.Shared.DTO.CarDetailDTO;
 using CTQM_CAR.Shared.DTO.CarDTO;
+using CTQM_CAR.Shared.DTO.CartDTO;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Runtime.Intrinsics.X86;
@@ -123,11 +124,10 @@ namespace CTQM_CAR.Service.Service.Implement
             }
         }
 
-        public async Task<List<CarDTO>> GetCarByName(string carName)
+        public async Task<CarDTO> GetCarByName(string carName)
         {
-            //return await _unitOfWork.carsRepo.GetByName(carName);
-            List<CarDTO> cars = new List<CarDTO>();
-            foreach (var car in await _unitOfWork.carsRepo.GetByName(carName))
+            var car = await _unitOfWork.carsRepo.GetByName(carName);
+            if (car != null)
             {
                 CarDTO carDTO = new CarDTO();
                 carDTO.CarId = car.CarId;
@@ -140,9 +140,9 @@ namespace CTQM_CAR.Service.Service.Implement
                 carDTO.MoTa = car.MoTa;
                 carDTO.Head1 = car.Head1;
                 carDTO.MoTa2 = car.MoTa2;
-                cars.Add(carDTO);
+                return carDTO;
             }
-            return cars;
+            return null;
         }
 
         public async Task<List<CarDTO>> GetCarByModel(string carModel)

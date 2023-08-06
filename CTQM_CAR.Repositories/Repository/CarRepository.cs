@@ -22,12 +22,11 @@ namespace CTQM_CAR.Repositories.Repository
 			get { return _context as MEC_DBContext; }
 		}
 
-        public async Task<List<Car>> GetByName(string carName)
+        public async Task<Car> GetByName(string carName)
         {
             return await MecDBContext.Cars
                 .Where(c => c.CarName.Contains(carName))
-                //.FirstOrDefaultAsync()
-                .ToListAsync();
+                .FirstOrDefaultAsync();
         }
 
         public async Task<List<Car>> GetByModel(string carModel)
