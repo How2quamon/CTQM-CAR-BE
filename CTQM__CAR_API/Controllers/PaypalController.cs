@@ -3,6 +3,7 @@ using CTQM_CAR.Service.Service.Interface;
 using CTQM_CAR.Shared.DTO.CarDTO;
 using CTQM_CAR.Shared.DTO.CartDTO;
 using CTQM_CAR.Shared.DTO.CustomerDTO;
+using CTQM_CAR.Shared.DTO.OrderDTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -17,11 +18,12 @@ namespace CTQM__CAR_API.Controllers
         private readonly IPaypalService _paypalService;
         private readonly ICartService _cartService;
         private readonly ICustomerService _customerService;
+        private readonly IOrderService _orderService;
         private readonly ILogger<PaypalController> _logger;
         private IHttpContextAccessor _httpContextAccessor;
         IConfiguration _configuration;
         private PayPal.Api.Payment payment;
-        public PaypalController(IPaypalService paypalService, ILogger<PaypalController> logger, IHttpContextAccessor context, IConfiguration iconfiguration, ICartService cartService, ICustomerService customerService)
+        public PaypalController(IPaypalService paypalService, ILogger<PaypalController> logger, IHttpContextAccessor context, IConfiguration iconfiguration, ICartService cartService, ICustomerService customerService, IOrderService orderService)
         {
             _logger = logger;
             _httpContextAccessor = context;
@@ -29,11 +31,12 @@ namespace CTQM__CAR_API.Controllers
             _paypalService = paypalService;
             _cartService = cartService;
             _customerService = customerService;
+            _orderService = orderService;
         }
         
 
         [HttpGet("CreatedPayment/{customerId}")]
-        public async Task<ActionResult<string>> PaymentWithPaypal([FromRoute] Guid customerId, string blogId = "", string PayerID = "")
+        public async Task<ActionResult<string>> PaymentWithPaypal([FromRoute] Guid customerId, string paymentId = "", string Cancel = null, string blogId = "", string PayerID = "")
         {
             //getting the apiContext  
             var ClientID = _configuration.GetValue<string>("PayPal:Key");
@@ -60,10 +63,11 @@ namespace CTQM__CAR_API.Controllers
                     //here we are generating guid for storing the paymentID received in session  
                     //which will be used in the payment execution  
                     //var guidd = Convert.ToString((new Random()).Next(100000));
-                    
+                    Guid guidd = Guid.NewGuid();
+                    guidd = customerId;
                     //CreatePayment function gives us the payment approval url  
                     //on which payer is redirected for paypal account payment  
-                    var createdPayment = await this.CreatePayment(apiContext, baseURI + customerId, customerId, blogId);
+                    var createdPayment = await this.CreatePayment(apiContext, baseURI + guidd, guidd, blogId);
                     
                     //get links returned from paypal in response to Create function call  
                     var links =  createdPayment.links.GetEnumerator();
@@ -80,20 +84,24 @@ namespace CTQM__CAR_API.Controllers
                     }
                     //return paypalRedirectUrl;
                     // saving the paymentID in the key guid  
-                    _httpContextAccessor.HttpContext.Session.SetString("payment", createdPayment.id);
+                    //_httpContextAccessor.HttpContext.Session.SetString("payment", createdPayment.id);
+                    // Thiết lập giá trị của Cookie
+                    //Response.Cookies.Append("payment", createdPayment.id);
                     //return Redirect(paypalRedirectUrl);
                     return Ok( new
                     {   
                         message = "redirect",
-                        url = paypalRedirectUrl
+                        url = paypalRedirectUrl,
+                        paymentId = createdPayment.id
                     });
                 }
                 else
                 {
                     // This function exectues after receving all parameters for the payment  
 
-                    var paymentId = _httpContextAccessor.HttpContext.Session.GetString("payment");
-                    var executedPayment = ExecutePayment(apiContext, payerId, paymentId as string);
+                    //var paymentId = _httpContextAccessor.HttpContext.Session.GetString("payment");
+                    // Truy xuất giá trị của Cookie
+                    var executedPayment = ExecutePayment(apiContext, payerId, paymentId);
                     //If executed payment failed then we will show payment failure message to user  
                     if (executedPayment.state.ToLower() != "approved")
                     {
@@ -103,11 +111,13 @@ namespace CTQM__CAR_API.Controllers
                         });
                     }
                     var blogIds = executedPayment.transactions[0].item_list.items[0].sku;
-
-                    return Ok(new
+                    CustomerPaymentDTO customerData = new CustomerPaymentDTO
                     {
-                        message = "PaymentSuccess"
-                    });
+                        CustomerId = customerId,
+                        OrderStatus = "Paypal"
+                    };
+                    await _orderService.CustomerPayment(customerData);
+                    return Redirect("");
                 }
             }
             catch (Exception ex)
