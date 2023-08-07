@@ -30,6 +30,8 @@ namespace CTQM_CAR.Shared.DTO.CartDTO
 				tmpTotalDiscount += (tmpCart.Amount * tmpCart.Price);
 				customerCarts.Add(tmpCart);
 			}
+			totalAmount = tmpTotalAmount;
+			totalDiscount = tmpTotalDiscount;
 		}
 
 		public List<CartDTO> GetCustomerCarts()

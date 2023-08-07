@@ -9,7 +9,7 @@ namespace CTQM_CAR.Service.Service.Interface
         Task<bool> FindCarById(Guid id);
         Task<List<CarDTO>> GetAllCars();
         Task<CarDTO> GetCarById(Guid id);
-        Task<List<CarDTO>> GetCarByName(string carName);
+        Task<CarDTO> GetCarByName(string carName);
         Task<List<CarDTO>> GetCarByModel(string? carModel);
         Task UpdateCar(Guid carId, AddCarDTO carDTO);
     }

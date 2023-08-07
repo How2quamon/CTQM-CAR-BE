@@ -168,6 +168,7 @@ namespace CTQM_CAR.Service.Service.Implement
                     _unitOfWork.carsRepo.Update(carContent);
                     await _unitOfWork.ordersRepo.Add(orderData);
                 }
+                await _unitOfWork.cartsRepo.DeleteCustomerCart(payment.CustomerId);
                 await _unitOfWork.SaveAsync();
                 return true;
             }
