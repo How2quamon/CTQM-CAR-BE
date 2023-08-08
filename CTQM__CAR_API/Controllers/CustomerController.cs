@@ -237,8 +237,7 @@ namespace CTQM__CAR_API.Controllers
 			// Check Validate
 
 			// Change Customer Info
-			CustomerDTO currentPassword = await _customerService.GetProfileById(id);
-			bool isSuccess = await _customerService.ChangeCustomerPassword(id, customerData, currentPassword.CustomerPassword);
+			bool isSuccess = await _customerService.ChangeCustomerPassword(id, customerData);
 			if (!isSuccess)
 				return BadRequest("Password Doesn't Match.");
 			return Ok("Change Password Success.");

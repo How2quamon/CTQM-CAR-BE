@@ -105,10 +105,7 @@ namespace CTQM__CAR_API.Controllers
                     //If executed payment failed then we will show payment failure message to user  
                     if (executedPayment.state.ToLower() != "approved")
                     {
-                        return Ok(new
-                        {
-                            message = "PaymentFailed"
-                        });
+                        return Redirect($"http://localhost:3000/paymentfail/{customerId}");
                     }
                     var blogIds = executedPayment.transactions[0].item_list.items[0].sku;
                     CustomerPaymentDTO customerData = new CustomerPaymentDTO
@@ -117,7 +114,7 @@ namespace CTQM__CAR_API.Controllers
                         OrderStatus = "Paypal"
                     };
                     await _orderService.CustomerPayment(customerData);
-                    return Redirect("");
+                    return Redirect($"http://localhost:3000/paymentsuccess/{customerId}");
                 }
             }
             catch (Exception ex)

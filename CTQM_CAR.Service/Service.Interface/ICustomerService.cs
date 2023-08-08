@@ -11,7 +11,7 @@ namespace CTQM_CAR.Service.Service.Interface
 		Task<CustomerTokenDTO?> GetCustomerByEmail(string email);
 		Task<bool> CreateNewCustomer(CustomerCreateDTO customerData);
 		Task<CustomerDTO> ChangeCustomerInfo(ChangeInfoDTO customerData, Guid customerId);
-		Task<bool> ChangeCustomerPassword(Guid customerId, ChangePasswordDTO customerData, string currentPassword);
+		Task<bool> ChangeCustomerPassword(Guid customerId, ChangePasswordDTO customerData);
 		Task<bool> DeleteCustomer(Guid customerId);
 	}
 }
