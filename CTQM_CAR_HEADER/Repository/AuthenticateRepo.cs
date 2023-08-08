@@ -33,7 +33,7 @@ namespace CTQM_CAR_HEADER.Repository
 			var tokenDescriptior = new SecurityTokenDescriptor
 			{
 				Subject = new ClaimsIdentity(claims),
-				Expires = DateTime.UtcNow.AddMinutes(20),
+				Expires = DateTime.UtcNow.AddDays(1),
 				Issuer = _configuration["JwtSettings:Issuer"],
 				Audience = _configuration["JwtSettings:Audience"],
 				SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256)

@@ -31,7 +31,7 @@ namespace CTQM_CAR.Service.Service.Implement
 				customerData.CustomerDate,
 				customerData.CustomerLicense,
 				customerData.CustomerEmail,
-                (bool)(customerData?.CustomerVaild)
+                customerData.CustomerVaild
                 );
 			return customerResult;
 		}
@@ -142,11 +142,13 @@ namespace CTQM_CAR.Service.Service.Implement
 			}
 		}
 
-		public async Task<bool> ChangeCustomerPassword(Guid customerId, ChangePasswordDTO customerData, string currentPassword)
+		public async Task<bool> ChangeCustomerPassword(Guid customerId, ChangePasswordDTO customerData)
 		{
 			try
-			{
-				if (customerData.OldPassword != currentPassword)
+            {
+				string currentPassword = GetCustomerById(customerId).Result.CustomerPassword;
+
+                if (customerData.OldPassword != currentPassword)
 					return false;
 
 				Customer updateCustomer = await GetCustomerById(customerId);
