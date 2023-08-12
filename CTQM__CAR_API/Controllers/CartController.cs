@@ -73,7 +73,7 @@ namespace CTQM__CAR_API.Controllers
 
         // Update Cart
         [HttpPut("UpdateCart/{cartId}")]
-		public async Task<ActionResult<CartDTO>> UpdateCart([FromRoute] Guid cartId, [FromBody] int amount = 1)
+		public async Task<ActionResult<CartDTO>> UpdateCart([FromRoute] Guid cartId, int amount = 1)
 		{
 			// Check Validate
 			if (amount < 0)
