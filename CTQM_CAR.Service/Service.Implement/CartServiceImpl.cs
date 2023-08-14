@@ -130,9 +130,33 @@ namespace CTQM_CAR.Service.Service.Implement
 		{
 			try
 			{
-				List<Cart> cartData = await _unitOfWork.cartsRepo.GetCustomerCart(customerId);
-				CustomerCartDTO customerResult = new CustomerCartDTO();
-				customerResult.setCustomerCarts(cartData);
+				List<Cart> cartsData = await _unitOfWork.cartsRepo.GetCustomerCart(customerId);
+                CustomerCartDTO customerResult = new CustomerCartDTO();
+				List<CartDetailDTO> customerCart = new List<CartDetailDTO>();
+                int? tmpTotalAmount = 0;
+                double? tmpTotalDiscount = 0;
+                foreach (Cart cart in cartsData)
+                {
+					var carData = await _unitOfWork.carsRepo.GetById(cart.CarId); 
+                    CartDetailDTO tmpCart = new CartDetailDTO
+                    {
+                        CartId = cart.CartId,
+                        CustomerId = cart.CustomerId,
+                        CarId = cart.CarId,
+                        Amount = cart.Amount,
+                        Price = cart.Price,
+						CarName = carData.CarName,
+						CarModel = carData.CarModel,
+						CarAmount = carData.CarAmount,
+						CarPrice = carData.CarPrice,
+				    };
+                    tmpTotalAmount += cart.Amount;
+                    tmpTotalDiscount += (cart.Amount * cart.Price);
+                    customerCart.Add(tmpCart);
+                }
+                customerResult.totalAmount = tmpTotalAmount;
+                customerResult.totalDiscount = tmpTotalDiscount;
+				customerResult.customerCarts = customerCart;
 				return customerResult;
 			}
 			catch (Exception ex)
@@ -190,7 +214,8 @@ namespace CTQM_CAR.Service.Service.Implement
                 if (check != null)
                 {
                     Guid cartId = Guid.Parse(check);
-                    await UpdateCustomerCart(cartId, 1);
+					var cartData = await _unitOfWork.cartsRepo.GetById(cartId);
+                    await UpdateCustomerCart(cartId, cartData.Amount + 1);
                 }
                 else
                 {
