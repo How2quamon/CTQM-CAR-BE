@@ -1,4 +1,4 @@
-﻿using CTQM_CAR.Domain;
+﻿using CTQM__CAR_API.CTQM_CAR.Domain;
 using CTQM_CAR.Repositories.IRepository;
 using CTQM_CAR.Service.Service.Interface;
 using CTQM_CAR.Shared.DTO.CustomerDTO;
