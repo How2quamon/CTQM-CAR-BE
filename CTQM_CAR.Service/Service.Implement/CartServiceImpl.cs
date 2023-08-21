@@ -24,7 +24,8 @@ namespace CTQM_CAR.Service.Service.Implement
 				if (check != null)
 				{
 					Guid cartId = Guid.Parse(check);
-					await UpdateCustomerCart(cartId, 1);
+					var cart = await _unitOfWork.cartsRepo.GetById(cartId);
+					await UpdateCustomerCart(cartId, cart.Amount + 1);
 				}
 				else
 				{

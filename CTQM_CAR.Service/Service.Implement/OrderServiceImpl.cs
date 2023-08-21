@@ -103,6 +103,7 @@ namespace CTQM_CAR.Service.Service.Implement
                 orderDTO.CarModel = carData.CarModel;
                 orderDTO.CarEngine = carData.CarEngine;
                 orderDTO.CarClass = carData.CarClass;
+                orderDTO.Image1 = carData.Image1;
                 orderList.Add(orderDTO);
             }
             return orderList;
