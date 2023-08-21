@@ -149,6 +149,7 @@ namespace CTQM_CAR.Service.Service.Implement
 						CarModel = carData.CarModel,
 						CarAmount = carData.CarAmount,
 						CarPrice = carData.CarPrice,
+						Image1 = carData.Image1
 				    };
                     tmpTotalAmount += cart.Amount;
                     tmpTotalDiscount += (cart.Amount * cart.Price);

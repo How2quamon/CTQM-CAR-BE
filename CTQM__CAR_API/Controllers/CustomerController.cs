@@ -181,7 +181,7 @@ namespace CTQM__CAR_API.Controllers
 
 
         // GetAllCustomer
-        [Authorize]
+        //[Authorize]
         [HttpGet("GetAllCustomer")]
 		public async Task<ActionResult<List<CustomerDTO>>> GetAllCustomer()
 		{

@@ -11,5 +11,6 @@ namespace CTQM_CAR.Repositories.IRepository
     {
         Task<Car> GetByName(string carName);
         Task<List<Car>> GetByModel(string carModel);
+        Task<List<Car>> SearchCars(string search);
     }
 }

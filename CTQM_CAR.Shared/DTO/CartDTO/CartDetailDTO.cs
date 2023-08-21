@@ -26,5 +26,7 @@ namespace CTQM_CAR.Shared.DTO.CartDTO
         public int CarAmount { get; set; }
         
         public double CarPrice { get; set; }
+
+        public string? Image1 { get; set; }
     }
 }

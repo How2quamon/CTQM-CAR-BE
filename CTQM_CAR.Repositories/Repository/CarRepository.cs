@@ -36,5 +36,19 @@ namespace CTQM_CAR.Repositories.Repository
                 //.FirstOrDefaultAsync()
                 .ToListAsync();
         }
+
+        public async Task<List<Car>> SearchCars(string search)
+        {
+            var result = await MecDBContext.Cars
+                .Where(c => c.CarModel.Contains(search))
+                .ToListAsync();
+            if (result.Count == 0)
+            {
+                result = await MecDBContext.Cars
+                .Where(c => c.CarName.Contains(search))
+                .ToListAsync();
+            }
+            return result;
+        }
     }
 }
