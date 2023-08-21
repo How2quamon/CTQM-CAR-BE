@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using CTQM_CAR.Domain;
+using CTQM__CAR_API.CTQM_CAR.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace CTQM_CAR.Infrastructure;

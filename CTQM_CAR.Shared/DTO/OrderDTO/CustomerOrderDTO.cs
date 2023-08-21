@@ -29,5 +29,7 @@ namespace CTQM_CAR.Shared.DTO.OrderDTO
         public int Amount { get; set; }
 
         public double TotalPrice { get; set; }
+
+        public string? Image1 { get; set; }
     }
 }

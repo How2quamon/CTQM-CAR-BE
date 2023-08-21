@@ -1,4 +1,4 @@
-﻿using CTQM_CAR.Domain;
+﻿using CTQM__CAR_API.CTQM_CAR.Domain;
 using CTQM_CAR.Repositories.IRepository;
 using CTQM_CAR.Service.Service.Interface;
 using CTQM_CAR.Shared.DTO.CarDetailDTO;
@@ -34,6 +34,10 @@ namespace CTQM_CAR.Service.Service.Implement
                 carDTO.MoTa = car.MoTa;
                 carDTO.Head1 = car.Head1;
                 carDTO.MoTa2 = car.MoTa2;
+                carDTO.Image1 = car.Image1;
+                carDTO.Image2 = car.Image2;
+                carDTO.Image3 = car.Image3;
+                carDTO.Image4 = car.Image4;
                 cars.Add(carDTO);
             }
             return cars;
@@ -63,6 +67,10 @@ namespace CTQM_CAR.Service.Service.Implement
                 carDTO.MoTa = car.MoTa;
                 carDTO.Head1 = car.Head1;
                 carDTO.MoTa2 = car.MoTa2;
+                carDTO.Image1 = car.Image1;
+                carDTO.Image2 = car.Image2;
+                carDTO.Image3 = car.Image3;
+                carDTO.Image4 = car.Image4;
                 return carDTO;
             }
             return null;
@@ -140,6 +148,10 @@ namespace CTQM_CAR.Service.Service.Implement
                 carDTO.MoTa = car.MoTa;
                 carDTO.Head1 = car.Head1;
                 carDTO.MoTa2 = car.MoTa2;
+                carDTO.Image1 = car.Image1;
+                carDTO.Image2 = car.Image2;
+                carDTO.Image3 = car.Image3;
+                carDTO.Image4 = car.Image4;
                 return carDTO;
             }
             return null;
@@ -162,6 +174,37 @@ namespace CTQM_CAR.Service.Service.Implement
                 carDTO.MoTa = car.MoTa;
                 carDTO.Head1 = car.Head1;
                 carDTO.MoTa2 = car.MoTa2;
+                carDTO.Image1 = car.Image1;
+                carDTO.Image2 = car.Image2;
+                carDTO.Image3 = car.Image3;
+                carDTO.Image4 = car.Image4;
+                cars.Add(carDTO);
+            }
+            return cars;
+        }
+
+        public async Task<List<CarDTO>> SearchCars(string search)
+        {
+
+            var searchResult = await _unitOfWork.carsRepo.SearchCars(search);
+            List<CarDTO> cars = new List<CarDTO>();
+            foreach (var car in searchResult)
+            {
+                CarDTO carDTO = new CarDTO();
+                carDTO.CarId = car.CarId;
+                carDTO.CarName = car.CarName;
+                carDTO.CarModel = car.CarModel;
+                carDTO.CarClass = car.CarClass;
+                carDTO.CarEngine = car.CarEngine;
+                carDTO.CarAmount = car.CarAmount;
+                carDTO.CarPrice = car.CarPrice;
+                carDTO.MoTa = car.MoTa;
+                carDTO.Head1 = car.Head1;
+                carDTO.MoTa2 = car.MoTa2;
+                carDTO.Image1 = car.Image1;
+                carDTO.Image2 = car.Image2;
+                carDTO.Image3 = car.Image3;
+                carDTO.Image4 = car.Image4;
                 cars.Add(carDTO);
             }
             return cars;

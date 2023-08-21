@@ -147,5 +147,14 @@ namespace CTQM__CAR_API.Controllers
             return Ok(car);
         }
 
+        [HttpGet("SearchForCars/{search}")]
+        public async Task<ActionResult<List<CarDTO>>> SearchCars(string search)
+        {
+            var car = await _carService.SearchCars(search);
+
+            if (car == null)
+                return NotFound("Get Car Failed.");
+            return Ok(car);
+        }
     }
 }

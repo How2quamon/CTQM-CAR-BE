@@ -1,4 +1,4 @@
-﻿using CTQM_CAR.Domain;
+﻿using CTQM__CAR_API.CTQM_CAR.Domain;
 using CTQM_CAR.Repositories.IRepository;
 using CTQM_CAR.Service.Service.Interface;
 using CTQM_CAR.Shared.DTO.CarDetailDTO;
@@ -103,6 +103,7 @@ namespace CTQM_CAR.Service.Service.Implement
                 orderDTO.CarModel = carData.CarModel;
                 orderDTO.CarEngine = carData.CarEngine;
                 orderDTO.CarClass = carData.CarClass;
+                orderDTO.Image1 = carData.Image1;
                 orderList.Add(orderDTO);
             }
             return orderList;

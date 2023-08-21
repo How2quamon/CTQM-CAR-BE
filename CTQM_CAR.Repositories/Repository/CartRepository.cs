@@ -1,6 +1,6 @@
 ﻿
 using CTQM__CAR_API.CTQM_CAR.Infrastructure;
-using CTQM_CAR.Domain;
+using CTQM__CAR_API.CTQM_CAR.Domain;
 using CTQM_CAR.Repositories.IRepository;
 using Microsoft.EntityFrameworkCore;
 using System;

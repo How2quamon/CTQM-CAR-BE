@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Configuration;
 //using System.Web.Mvc;
-using CTQM_CAR.Domain;
+using CTQM__CAR_API.CTQM_CAR.Domain;
 using CTQM_CAR.Shared.DTO.CarDTO;
 using CTQM_CAR.Shared.DTO.CartDTO;
 using CTQM_CAR.Shared.DTO.PayLib;

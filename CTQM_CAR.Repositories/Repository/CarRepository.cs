@@ -1,6 +1,6 @@
 ﻿
 using CTQM__CAR_API.CTQM_CAR.Infrastructure;
-using CTQM_CAR.Domain;
+using CTQM__CAR_API.CTQM_CAR.Domain;
 using CTQM_CAR.Repositories.IRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -35,6 +35,20 @@ namespace CTQM_CAR.Repositories.Repository
                 .Where(c => c.CarModel.Contains(carModel))
                 //.FirstOrDefaultAsync()
                 .ToListAsync();
+        }
+
+        public async Task<List<Car>> SearchCars(string search)
+        {
+            var result = await MecDBContext.Cars
+                .Where(c => c.CarModel.Contains(search))
+                .ToListAsync();
+            if (result.Count == 0)
+            {
+                result = await MecDBContext.Cars
+                .Where(c => c.CarName.Contains(search))
+                .ToListAsync();
+            }
+            return result;
         }
     }
 }

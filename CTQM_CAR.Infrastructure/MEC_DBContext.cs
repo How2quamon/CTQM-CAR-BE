@@ -2,7 +2,7 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using CTQM_CAR.Domain;
+using CTQM__CAR_API.CTQM_CAR.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace CTQM__CAR_API.CTQM_CAR.Infrastructure;
@@ -30,6 +30,8 @@ public partial class MEC_DBContext : DbContext
         {
             entity.ToTable("Car");
 
+            entity.HasIndex(e => e.CarName, "UQ__Car__033C0543F3DD52B5").IsUnique();
+
             entity.Property(e => e.CarId)
                 .ValueGeneratedNever()
                 .HasColumnName("Car_ID");
@@ -44,10 +46,21 @@ public partial class MEC_DBContext : DbContext
                 .IsRequired()
                 .HasColumnName("Car_model");
             entity.Property(e => e.CarName)
-                .IsRequired()
                 .HasMaxLength(50)
                 .HasColumnName("Car_name");
             entity.Property(e => e.CarPrice).HasColumnName("Car_price");
+            entity.Property(e => e.Image1)
+                .HasMaxLength(30)
+                .IsFixedLength();
+            entity.Property(e => e.Image2)
+                .HasMaxLength(30)
+                .IsFixedLength();
+            entity.Property(e => e.Image3)
+                .HasMaxLength(30)
+                .IsFixedLength();
+            entity.Property(e => e.Image4)
+                .HasMaxLength(30)
+                .IsFixedLength();
         });
 
         modelBuilder.Entity<CarDetail>(entity =>
@@ -62,6 +75,8 @@ public partial class MEC_DBContext : DbContext
             entity.Property(e => e.CarId).HasColumnName("Car_ID");
             entity.Property(e => e.Head1).IsRequired();
             entity.Property(e => e.Title1).IsRequired();
+
+            entity.HasOne(d => d.Car).WithMany(p => p.CarDetails).HasForeignKey(d => d.CarId);
         });
 
         modelBuilder.Entity<Cart>(entity =>
@@ -73,6 +88,10 @@ public partial class MEC_DBContext : DbContext
                 .HasColumnName("Cart_ID");
             entity.Property(e => e.CarId).HasColumnName("Car_ID");
             entity.Property(e => e.CustomerId).HasColumnName("Customer_ID");
+
+            entity.HasOne(d => d.Car).WithMany(p => p.Carts).HasForeignKey(d => d.CarId);
+
+            entity.HasOne(d => d.Customer).WithMany(p => p.Carts).HasForeignKey(d => d.CustomerId);
         });
 
         modelBuilder.Entity<Customer>(entity =>
@@ -86,6 +105,7 @@ public partial class MEC_DBContext : DbContext
             entity.Property(e => e.CustomerDate).HasColumnName("Customer_date");
             entity.Property(e => e.CustomerEmail)
                 .IsRequired()
+                .HasDefaultValueSql("(N'')")
                 .HasColumnName("Customer_email");
             entity.Property(e => e.CustomerLicense)
                 .IsRequired()
@@ -113,6 +133,10 @@ public partial class MEC_DBContext : DbContext
             entity.Property(e => e.OrderDate).HasColumnName("Order_date");
             entity.Property(e => e.OrderStatus).HasColumnName("Order_status");
             entity.Property(e => e.TotalPrice).HasColumnName("Total_price");
+
+            entity.HasOne(d => d.Car).WithMany(p => p.Orders).HasForeignKey(d => d.CarId);
+
+            entity.HasOne(d => d.Customer).WithMany(p => p.Orders).HasForeignKey(d => d.CustomerId);
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CTQM_CAR.Domain\CTQM_CAR.Domain.csproj" />
     <ProjectReference Include="..\CTQM_CAR.Repositories\CTQM_CAR.Repositories.csproj" />
     <ProjectReference Include="..\CTQM_CAR.Shared\CTQM_CAR.Shared.csproj" />
   </ItemGroup>

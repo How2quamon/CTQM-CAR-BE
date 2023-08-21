@@ -41,7 +41,7 @@ namespace CTQM__CAR_API.Controllers
 			{
 				return BadRequest("Get Customer Cart Failed.");
 			}
-			return Ok(data.GetCustomerCarts());
+			return Ok(data);
 		}
 
 		// Add to Cart
@@ -72,18 +72,18 @@ namespace CTQM__CAR_API.Controllers
 
 
         // Update Cart
-        [HttpPut("UpdateCart/{cartId}")]
-		public async Task<ActionResult<CartDTO>> UpdateCart([FromRoute] Guid cartId, [FromBody] int amount = 1)
+        [HttpPut("UpdateCart")]
+		public async Task<ActionResult<CartDTO>> UpdateCart([FromBody] UpdateCartDTO update)
 		{
 			// Check Validate
-			if (amount < 0)
-			{
-				// Delete
-				await DeleteCart(cartId);
-				return Ok("Delete Cart Success.");
-			}
+			//if (amount < 0)
+			//{
+			//	// Delete
+			//	await DeleteCart(update.CartId);
+			//	return Ok("Delete Cart Success.");
+			//}
 			// Update Cart
-			var result = await _cartService.UpdateCustomerCart(cartId, amount);
+			var result = await _cartService.UpdateCustomerCart(update.CartId, update.Amount);
 			if (result == null)
 				return BadRequest("Update Cart Failed.");
 			return Ok(result);

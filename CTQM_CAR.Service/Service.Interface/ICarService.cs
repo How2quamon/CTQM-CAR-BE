@@ -11,6 +11,7 @@ namespace CTQM_CAR.Service.Service.Interface
         Task<CarDTO> GetCarById(Guid id);
         Task<CarDTO> GetCarByName(string carName);
         Task<List<CarDTO>> GetCarByModel(string? carModel);
+        Task<List<CarDTO>> SearchCars(string search);
         Task UpdateCar(Guid carId, AddCarDTO carDTO);
     }
 }
