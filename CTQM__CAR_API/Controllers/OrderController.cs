@@ -3,6 +3,8 @@ using CTQM_CAR.Service.Service.Interface;
 using CTQM_CAR.Shared.DTO.CarDetailDTO;
 using CTQM_CAR.Shared.DTO.CarDTO;
 using CTQM_CAR.Shared.DTO.OrderDTO;
+using CTQM_CAR_API.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +12,7 @@ namespace CTQM__CAR_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
@@ -136,6 +139,7 @@ namespace CTQM__CAR_API.Controllers
 
         //Delete order by id
         [HttpDelete("DeleteOrder/{id}")]
+        [RequiresClaim(IdentityData.AdminCustomerClaimName, "true")]
         public async Task<ActionResult> DeleteOrder([FromRoute] Guid id)
         {
             try
@@ -163,6 +167,7 @@ namespace CTQM__CAR_API.Controllers
 
         //Update order status by id
         [HttpPut("UpdateOrderStatus/{id}")]
+        [RequiresClaim(IdentityData.AdminCustomerClaimName, "true")]
         public async Task<ActionResult<OrderDTO>> UpdateOrderStatus([FromRoute] Guid id, [FromBody] bool orderStatus)
         {
             try

@@ -1,6 +1,8 @@
 ﻿using Azure.Core;
 using CTQM_CAR.Service.Service.Interface;
 using CTQM_CAR.Shared.DTO.CartDTO;
+using CTQM_CAR_API.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Formats.Asn1;
@@ -9,6 +11,7 @@ namespace CTQM__CAR_API.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class CartController : ControllerBase
 	{
 		private readonly ICartService _cartService;
@@ -20,7 +23,8 @@ namespace CTQM__CAR_API.Controllers
 
 		// Get All Cart
 		[HttpGet("GetCallCart")]
-		public async Task<ActionResult<List<CartDTO>>> GetAllCart()
+        [RequiresClaim(IdentityData.AdminCustomerClaimName, "true")]
+        public async Task<ActionResult<List<CartDTO>>> GetAllCart()
 		{
 			return await _cartService.GetAllCart();
 		}

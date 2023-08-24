@@ -4,6 +4,7 @@ using CTQM_CAR.Shared.DTO.CarDTO;
 using CTQM_CAR.Shared.DTO.CartDTO;
 using CTQM_CAR.Shared.DTO.CustomerDTO;
 using CTQM_CAR.Shared.DTO.OrderDTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -34,7 +35,6 @@ namespace CTQM__CAR_API.Controllers
             _orderService = orderService;
         }
         
-
         [HttpGet("CreatedPayment/{customerId}")]
         public async Task<ActionResult<string>> PaymentWithPaypal([FromRoute] Guid customerId, string paymentId = "", string Cancel = null, string blogId = "", string PayerID = "")
         {
@@ -105,7 +105,7 @@ namespace CTQM__CAR_API.Controllers
                     //If executed payment failed then we will show payment failure message to user  
                     if (executedPayment.state.ToLower() != "approved")
                     {
-                        return Redirect($"http://localhost:3000/paymentfail/{customerId}");
+                        return Redirect($"https://ctqmmec.azurewebsites.net/paymentfail/{customerId}");
                     }
                     var blogIds = executedPayment.transactions[0].item_list.items[0].sku;
                     CustomerPaymentDTO customerData = new CustomerPaymentDTO
@@ -114,7 +114,7 @@ namespace CTQM__CAR_API.Controllers
                         OrderStatus = "Paypal"
                     };
                     await _orderService.CustomerPayment(customerData);
-                    return Redirect($"http://localhost:3000/paymentsuccess/{customerId}");
+                    return Redirect($"https://ctqmmec.azurewebsites.net/paymentsuccess/{customerId}");
                 }
             }
             catch (Exception ex)

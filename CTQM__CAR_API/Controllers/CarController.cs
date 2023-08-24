@@ -2,6 +2,8 @@
 using CTQM_CAR.Shared.DTO.CarDetailDTO;
 using CTQM_CAR.Shared.DTO.CarDTO;
 using CTQM_CAR.Shared.DTO.CustomerDTO;
+using CTQM_CAR_API.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,7 @@ namespace CTQM__CAR_API.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+    [Authorize]
 	public class CarController : ControllerBase
 	{
 		private readonly ICarService _carService;
@@ -20,7 +23,7 @@ namespace CTQM__CAR_API.Controllers
 		}
 
         //Show all Car
-        //[AllowAnonymous]
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<List<CarDTO>>> Get()
         {
@@ -29,6 +32,7 @@ namespace CTQM__CAR_API.Controllers
 
         //Show selected car
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<CarDTO>> Get([FromRoute] Guid id)
         {
             // Check Exist
@@ -70,6 +74,7 @@ namespace CTQM__CAR_API.Controllers
 
         //Delete car
         [HttpDelete("DeleteCar/{id}")]
+        [RequiresClaim(IdentityData.AdminCustomerClaimName, "true")]
         public async Task<ActionResult> DeleteCar([FromRoute] Guid id)
         {
             try
@@ -97,6 +102,7 @@ namespace CTQM__CAR_API.Controllers
 
         //Update Car
         [HttpPut("UpdateCar/{id}")]
+        [RequiresClaim(IdentityData.AdminCustomerClaimName, "true")]
         public async Task<ActionResult<CarDetailDTO>> UpdateCar([FromRoute] Guid id, [FromBody] AddCarDTO carData)
         {
             try
@@ -126,6 +132,7 @@ namespace CTQM__CAR_API.Controllers
 
         //Search Car By Name
         [HttpGet("GetCarByName/{carName}")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<CarDTO>>> Search([FromRoute] string carName)
         {
             var car = await _carService.GetCarByName(carName);
@@ -138,6 +145,7 @@ namespace CTQM__CAR_API.Controllers
 
         //Recommended Car By Type
         [HttpGet("GetCarWithModel/{carModel}")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<CarDTO>>> Recommened(string? carModel)
         {
             var car = await _carService.GetCarByModel(carModel);
@@ -148,6 +156,7 @@ namespace CTQM__CAR_API.Controllers
         }
 
         [HttpGet("SearchForCars/{search}")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<CarDTO>>> SearchCars(string search)
         {
             var car = await _carService.SearchCars(search);

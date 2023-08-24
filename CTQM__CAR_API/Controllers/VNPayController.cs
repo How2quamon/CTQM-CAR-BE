@@ -11,6 +11,9 @@ using CTQM_CAR.Shared.DTO.PayLib;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Web;
+using Microsoft.AspNetCore.Authorization;
+using CTQM_CAR.Shared.DTO.CustomerDTO;
+using CTQM_CAR.Shared.DTO.OrderDTO;
 
 namespace CTQM__CAR_API.Controllers
 {
@@ -20,13 +23,14 @@ namespace CTQM__CAR_API.Controllers
     {
         private readonly IVNPayService _vnpayService;
         private readonly ICartService _cartService;
+        private readonly IOrderService _orderService;
         private readonly ICustomerService _customerService;
         private readonly ILogger<PaypalController> _logger;
         private IHttpContextAccessor _httpContextAccessor;
         //private readonly HttpContext _httpContext;
         IConfiguration _configuration;
 
-        public VNPayController(IVNPayService vnpayService, ILogger<PaypalController> logger, IHttpContextAccessor context, IConfiguration iconfiguration, ICartService cartService, ICustomerService customerService)
+        public VNPayController(IVNPayService vnpayService, ILogger<PaypalController> logger, IHttpContextAccessor context, IConfiguration iconfiguration, ICartService cartService, ICustomerService customerService, IOrderService orderService)
         {
             _logger = logger;
             _httpContextAccessor = context;
@@ -34,9 +38,11 @@ namespace CTQM__CAR_API.Controllers
             _vnpayService = vnpayService;
             _cartService = cartService;
             _customerService = customerService;
+            _orderService = orderService;
             //_httpContext = httpContext;
         }
 
+        [Authorize]
         [HttpGet("CreatedPaymentVNPay/{customerId}")]
         public async Task<ActionResult<string>> Payment([FromRoute] Guid customerId)
         {
@@ -65,7 +71,12 @@ namespace CTQM__CAR_API.Controllers
             pay.AddRequestData("vnp_TxnRef", newGuid.ToString()); //mã hóa đơn
 
             string paymentUrl = pay.CreateRequestUrl(url, hashSecret);
-
+            CustomerPaymentDTO customerPaymentDTO = new CustomerPaymentDTO
+            {
+                CustomerId = customerId,
+                OrderStatus = "VNPay"
+            };
+            await _orderService.CustomerPayment(customerPaymentDTO);
             return Ok ( new
             {
                 message = "redirect",
