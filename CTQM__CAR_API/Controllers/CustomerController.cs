@@ -11,6 +11,7 @@ namespace CTQM__CAR_API.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class CustomerController : ControllerBase
 	{
 		private readonly ICustomerService _customerService;
@@ -25,6 +26,7 @@ namespace CTQM__CAR_API.Controllers
 		}
 
 		[HttpPost("Login")]
+		[AllowAnonymous]
 		public async Task<ActionResult> CustomerLogin([FromBody] CustomerLoginDTO login)
 		{
 			try
@@ -155,7 +157,8 @@ namespace CTQM__CAR_API.Controllers
         #endregion
 
         [HttpPost("LogOut")]
-		public async Task<ActionResult> CustomerLogOut([FromRoute] string token)
+		[AllowAnonymous]
+        public async Task<ActionResult> CustomerLogOut([FromRoute] string token)
 		{
 			try
 			{
@@ -181,7 +184,7 @@ namespace CTQM__CAR_API.Controllers
 
 
         // GetAllCustomer
-        //[Authorize]
+        [RequiresClaim(IdentityData.AdminCustomerClaimName, "true")]
         [HttpGet("GetAllCustomer")]
 		public async Task<ActionResult<List<CustomerDTO>>> GetAllCustomer()
 		{
@@ -203,6 +206,7 @@ namespace CTQM__CAR_API.Controllers
 		}
 
 		// SignUp
+		[AllowAnonymous]
 		[HttpPost("CreateNewCustomer")]
 		public async Task<ActionResult> CreateNewCustomer([FromBody] CustomerCreateDTO customerData)
 		{

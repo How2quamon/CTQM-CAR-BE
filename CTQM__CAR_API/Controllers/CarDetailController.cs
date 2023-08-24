@@ -1,6 +1,8 @@
 ﻿using CTQM_CAR.Service.Service.Interface;
 using CTQM_CAR.Shared.DTO.CarDetailDTO;
 using CTQM_CAR.Shared.DTO.CarDTO;
+using CTQM_CAR_API.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +11,7 @@ namespace CTQM__CAR_API.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+    [Authorize]
 	public class CarDetailController : ControllerBase
 	{
 		private readonly ICarDetailService _carDetailService;
@@ -19,12 +22,14 @@ namespace CTQM__CAR_API.Controllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<List<CarDTO>>> Get()
+		[RequiresClaim(IdentityData.AdminCustomerClaimName, "true")]
+        public async Task<ActionResult<List<CarDTO>>> Get()
 		{
 			return Ok(await _carDetailService.GetAllCarDetail());
 		}
 
 		[HttpPost("NewCarDetail")]
+        [RequiresClaim(IdentityData.AdminCustomerClaimName, "true")]
         public async Task<ActionResult> AddCarDetail([FromBody] AddCarDetailDTO carDetail)
         {
             try
@@ -45,6 +50,7 @@ namespace CTQM__CAR_API.Controllers
         }
 
         [HttpGet("GetByCarId/{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<CarDetailDTO>> GetByCarId([FromRoute] Guid id)
         {
             // Check Exist
@@ -64,6 +70,7 @@ namespace CTQM__CAR_API.Controllers
         }
 
 		[HttpGet("GetById/{id}")]
+        [AllowAnonymous]
 		public async Task<ActionResult<CarDetailDTO>> GetById([FromRoute] Guid id)
 		{
 			// Check Exist
@@ -83,6 +90,7 @@ namespace CTQM__CAR_API.Controllers
 		}
 
 		[HttpPut("UpdateCarDetail/{id}")]
+		[RequiresClaim(IdentityData.AdminCustomerClaimName, "true")]
         public async Task<ActionResult<CarDetailDTO>> UpdateCarDetail([FromRoute] Guid id, [FromBody] UpdateCarDetailDTO carDetail)
         {
             try
@@ -110,6 +118,7 @@ namespace CTQM__CAR_API.Controllers
         }
 
         [HttpDelete("DeleteCarDetail/{id}")]
+		[RequiresClaim(IdentityData.AdminCustomerClaimName, "true")]
         public async Task<ActionResult> DeleteCarDetail([FromRoute] Guid id)
         {
             try
